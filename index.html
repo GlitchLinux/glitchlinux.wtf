@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glitch Linux</title>
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+        }
+
+        /* Top Banner */
+        .banner {
+            background-color: #1a1a1a;
+            color: #00ff00;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            letter-spacing: 3px;
+            font-family: "Courier New", monospace; /* Monospace font */
+        }
+
+        /* Navigation Tabs */
+        .nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+
+        .nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 1.2em;
+            display: inline-block;
+            line-height: 40px; /* Ensure uniform height */
+            vertical-align: middle; /* Align everything vertically */
+            cursor: pointer;
+        }
+
+        .nav a:hover {
+            background-color: #575757;
+        }
+
+        /* Dropdown submenus */
+        .nav .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .nav .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .nav .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            line-height: normal; /* Reset line-height for submenu items */
+        }
+
+        .nav .dropdown-content a:hover {
+            background-color: #575757;
+        }
+
+        .nav .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Page Content */
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .contact-page a {
+            color: #1E90FF; /* Blue link */
+            text-decoration: none;
+        }
+
+        .contact-page a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <script>
+        // Function to switch between content
+        function showContent(page) {
+            document.getElementById('home-content').classList.add('hidden');
+            document.getElementById('contact-content').classList.add('hidden');
+
+            if (page === 'home') {
+                document.getElementById('home-content').classList.remove('hidden');
+            } else if (page === 'contact') {
+                document.getElementById('contact-content').classList.remove('hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Top Banner -->
+    <div class="banner">GLITCH LINUX</div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav">
+        <a onclick="showContent('home')">HOME</a>
+
+        <div class="dropdown">
+            <a>DOWNLOADS & SCRIPTS</a>
+            <div class="dropdown-content">
+                <a href="#">Bash Scripts</a>
+                <a href="#">Python Scripts</a>
+                <a href="#">.deb Files</a>
+                <a href="#">Wallpapers</a>
+            </div>
+        </div>
+
+        <a onclick="showContent('contact')">CONTACT</a>
+    </div>
+
+    <!-- Page Content -->
+    <div id="home-content" class="content">
+        <h1>Welcome to Glitch Linux</h1>
+        <p>Glitch Linux is a Debian-based Linux distribution designed for users who prioritize privacy and anonymity. Currently under development.</p>
+    </div>
+
+    <div id="contact-content" class="content hidden">
+        <p>📧 EMAIL: info@glitchlinux.com</p>
+        <p>💻 GITHUB: <a href="http://www.glitchlinux.com" target="_blank">www.glitchlinux.com</a></p>
+    </div>
+</body>
+</html>
