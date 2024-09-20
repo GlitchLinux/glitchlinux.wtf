@@ -97,6 +97,11 @@
         .contact-page a:hover {
             text-decoration: underline;
         }
+
+        /* Increase font size for email, GitHub, and homepage content */
+        .contact-content p, .home-content p {
+            font-size: 1.6em; /* 4 sizes larger */
+        }
     </style>
 
     <script>
@@ -135,12 +140,12 @@
     </div>
 
     <!-- Page Content -->
-    <div id="home-content" class="content">
+    <div id="home-content" class="content home-content">
         <h1>Welcome to Glitch Linux</h1>
         <p>Glitch Linux is a Debian-based Linux distribution designed for users who prioritize privacy and anonymity. Currently under development.</p>
     </div>
 
-    <div id="contact-content" class="content hidden">
+    <div id="contact-content" class="content hidden contact-content">
         <p>📧 EMAIL: info@glitchlinux.com</p>
         <p>💻 GITHUB: <a href="http://www.glitchlinux.com" target="_blank">www.glitchlinux.com</a></p>
     </div>
