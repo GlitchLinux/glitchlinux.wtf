@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glitch Linux</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet"> <!-- Link to the glitchy font -->
     <style>
         /* General Styling */
         body {
@@ -19,10 +20,10 @@
             color: #00ff00;
             text-align: center;
             padding: 20px 0;
-            font-size: 2.5em;
+            font-size: 3.75em; /* Increased by 50% from 2.5em */
             font-weight: bold;
             letter-spacing: 3px;
-            font-family: "Courier New", monospace; /* Monospace font */
+            font-family: 'VT323', monospace; /* Apply the glitchy font */
         }
 
         /* Navigation Tabs */
@@ -109,12 +110,20 @@
         function showContent(page) {
             document.getElementById('home-content').classList.add('hidden');
             document.getElementById('contact-content').classList.add('hidden');
+            document.getElementById('downloads-content').classList.add('hidden');
 
             if (page === 'home') {
                 document.getElementById('home-content').classList.remove('hidden');
             } else if (page === 'contact') {
                 document.getElementById('contact-content').classList.remove('hidden');
+            } else if (page === 'downloads') {
+                document.getElementById('downloads-content').classList.remove('hidden');
             }
+        }
+
+        // Function to redirect to scripts page
+        function redirectToScripts() {
+            window.location.href = "https://github.com/GlitchLinux?tab=repositories";
         }
     </script>
 </head>
@@ -127,12 +136,9 @@
         <a onclick="showContent('home')">HOME</a>
 
         <div class="dropdown">
-            <a>DOWNLOADS & SCRIPTS</a>
+            <a onclick="showContent('downloads')">DOWNLOADS & SCRIPTS</a>
             <div class="dropdown-content">
-                <a href="#">Bash Scripts</a>
-                <a href="#">Python Scripts</a>
-                <a href="#">.deb Files</a>
-                <a href="#">Wallpapers</a>
+                <a onclick="redirectToScripts()">Scripts</a>
             </div>
         </div>
 
@@ -143,6 +149,14 @@
     <div id="home-content" class="content home-content">
         <h1>Welcome to Glitch Linux</h1>
         <p>Glitch Linux is a Debian-based Linux distribution designed for users who prioritize privacy and anonymity. Currently under development.</p>
+    </div>
+
+    <div id="downloads-content" class="content hidden">
+        <h1>Downloads & Scripts</h1>
+        <p>Select a category to explore:</p>
+        <div>
+            <h2><a onclick="redirectToScripts()" style="color: #00ff00;">Scripts</a></h2>
+        </div>
     </div>
 
     <div id="contact-content" class="content hidden contact-content">
