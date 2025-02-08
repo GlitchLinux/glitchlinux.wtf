@@ -92,12 +92,14 @@ section {
     border-bottom: 1px solid #00ff00;
 }
 
+/* Change category titles to grey */
 h2 {
-    color: #00ff00;
+    color: #5A5A5A;
     font-size: 2rem;
     margin-bottom: 1rem;
 }
 
+/* Keep paragraph text green */
 p, ul {
     color: #00ff00;
     opacity: 0.9;
