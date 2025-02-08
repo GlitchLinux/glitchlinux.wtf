@@ -12,7 +12,7 @@ header {
     text-align: center;
     padding: 2rem 0;
     background-color: #000;
-    border-bottom: 2px solid #00ff00;
+    border-bottom: 2px solid #5A5A5A; /* Changed from green to grey */
 }
 
 .glitch {
@@ -89,7 +89,7 @@ nav ul li a:hover {
 
 section {
     padding: 2rem;
-    border-bottom: 1px solid #00ff00;
+    border-bottom: 1px solid #5A5A5A; /* Changed from green to grey */
 }
 
 /* Change category titles to grey */
@@ -129,7 +129,7 @@ ul {
     margin-top: 1rem;
 }
 
-.social-links a {
+social-links a {
     color: #00ff00;
     text-decoration: none;
     margin: 0 1rem;
@@ -144,6 +144,6 @@ footer {
     text-align: center;
     padding: 1rem;
     background-color: #000;
-    border-top: 2px solid #00ff00;
+    border-top: 2px solid #5A5A5A; /* Changed from green to grey */
     margin-top: 2rem;
 }
