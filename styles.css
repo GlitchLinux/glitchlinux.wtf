@@ -55,7 +55,7 @@ header {
 }
 
 .tagline {
-    font-size: 1.2rem;
+    font-size: 1.2625rem; /* Increased font size by 1 point */
     color: #00ff00;
     opacity: 0.8;
 }
