@@ -3,165 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glitch Linux</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet"> <!-- Link to the glitchy font -->
+    <title>gLiTcH Linux</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        /* General Styling */
         body {
+            background-image: url('splash.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
-        }
-
-        /* Top Banner */
-        .banner {
-            background-color: #1a1a1a;
-            color: #00ff00;
-            text-align: center;
-            padding: 20px 0;
-            font-size: 3.75em; /* Increased by 50% from 2.5em */
-            font-weight: bold;
-            letter-spacing: 3px;
-            font-family: 'VT323', monospace; /* Apply the glitchy font */
-        }
-
-        /* Navigation Tabs */
-        .nav {
-            display: flex;
-            justify-content: center;
-            background-color: #333;
-        }
-
-        .nav a {
-            color: white;
-            padding: 14px 20px;
-            text-decoration: none;
-            text-align: center;
-            font-size: 1.2em;
-            display: inline-block;
-            line-height: 40px; /* Ensure uniform height */
-            vertical-align: middle; /* Align everything vertically */
-            cursor: pointer;
-        }
-
-        .nav a:hover {
-            background-color: #575757;
-        }
-
-        /* Dropdown submenus */
-        .nav .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .nav .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #333;
-            min-width: 160px;
-            z-index: 1;
-        }
-
-        .nav .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-            line-height: normal; /* Reset line-height for submenu items */
-        }
-
-        .nav .dropdown-content a:hover {
-            background-color: #575757;
-        }
-
-        .nav .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* Page Content */
-        .content {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .contact-page a {
-            color: #1E90FF; /* Blue link */
-            text-decoration: none;
-        }
-
-        .contact-page a:hover {
-            text-decoration: underline;
-        }
-
-        /* Increase font size for email, GitHub, and homepage content */
-        .contact-content p, .home-content p {
-            font-size: 1.6em; /* 4 sizes larger */
+            height: 100vh;
         }
     </style>
-
-    <script>
-        // Function to switch between content
-        function showContent(page) {
-            document.getElementById('home-content').classList.add('hidden');
-            document.getElementById('contact-content').classList.add('hidden');
-            document.getElementById('downloads-content').classList.add('hidden');
-
-            if (page === 'home') {
-                document.getElementById('home-content').classList.remove('hidden');
-            } else if (page === 'contact') {
-                document.getElementById('contact-content').classList.remove('hidden');
-            } else if (page === 'downloads') {
-                document.getElementById('downloads-content').classList.remove('hidden');
-            }
-        }
-
-        // Function to redirect to scripts page
-        function redirectToScripts() {
-            window.location.href = "https://github.com/GlitchLinux?tab=repositories";
-        }
-    </script>
 </head>
 <body>
-    <!-- Top Banner -->
-    <div class="banner">GLITCH LINUX</div>
+    <header>
+        <div class="glitch" data-text="gLiTcH Linux">gLiTcH Linux</div>
+        <p class="tagline">Privacy. Security. Freedom.</p>
+        <p class="description">Glitch Linux is a Debian-based Linux distribution designed for users who prioritize privacy and anonymity.</p>
+    </header>
 
-    <!-- Navigation Tabs -->
-    <div class="nav">
-        <a onclick="showContent('home')">HOME</a>
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#download">Download</a></li>
+            <li><a href="#scripts">Scripts</a></li>
+            <li><a href="#community">Community</a></li>
+        </ul>
+    </nav>
 
-        <div class="dropdown">
-            <a onclick="showContent('downloads')">DOWNLOADS & SCRIPTS</a>
-            <div class="dropdown-content">
-                <a onclick="redirectToScripts()">Scripts</a>
-            </div>
+    <section id="about">
+        <h2>About gLiTcH Linux</h2>
+        <p>gLiTcH Linux is a lightweight, security-focused operating system designed for privacy enthusiasts and hackers alike. Built with stealth and OPSEC in mind, it provides a robust platform for secure computing.</p>
+    </section>
+
+    <section id="features">
+        <h2>Features</h2>
+        <ul>
+            <li>Pre-configured privacy tools</li>
+            <li>gLiTcH Linux is a Debian-based distro that focuses on privacy, anonymity, and security.</li>
+            <li>The .img file is bootable in both BIOS and UEFI.</li>
+            <li>It includes a Calamares installer but is also designed for live boot usage.</li>
+            <li>An encrypted persistent partition can be set up, giving users flexibility and security.</li>
+        </ul>
+    </section>
+
+    <section id="download">
+        <h2>Download</h2>
+        <p>Get started with gLiTcH Linux today. Download the latest version:</p>
+        <a href="https://storage3.fastupload.io/0f330fac166d894b/gLiTcH-Linux-KDE-v5.0-BIOS-UEFI-3.7GB.img?download_token=42ba405b1ba891be5da41c619e602bccae2fa2be17d40bcb4034304e600272ec">
+            <button class="download-btn">Download .img</button>
+        </a>
+    </section>
+
+    <section id="scripts">
+        <h2>Scripts</h2>
+        <p>These are some useful scripts for deployment and system setup:</p>
+        <ul>
+            <li>
+                <a href="https://github.com/GlitchLinux/QEMU-QuickBoot/releases/download/Qemu-QuickBoot-v.1.3/QEMU-QuickBoot.sh">
+                    <button class="download-btn">Download QEMU-QuickBoot</button>
+                </a>
+                <p>Zenity GUI Interface for quick and easy deployment of QEMU Virtual Machines.</p>
+            </li>
+            <li>
+                <a href="https://raw.githubusercontent.com/GlitchLinux/linux-live-encrypted-persistence/refs/heads/main/linux-live-encrypted-persistence.sh" download="linux-live-encrypted-persistence.sh">
+                    <button class="download-btn">Download Linux-live-encrypted-persistence</button>
+                </a>
+                <p>Bash script that automates the setup of an encrypted persistent partition on a live system based on Debian/Ubuntu.</p>
+            </li>
+        </ul>
+    </section>
+
+    <section id="community">
+        <h2>Join the Community</h2>
+        <p>Connect with other users, contribute to the project, and stay updated:</p>
+        <div class="social-links">
+            <a href="https://github.com/GlitchLinux">GitHub</a>
         </div>
+    </section>
 
-        <a onclick="showContent('contact')">CONTACT</a>
-    </div>
-
-    <!-- Page Content -->
-    <div id="home-content" class="content home-content">
-        <h1>Welcome to Glitch Linux</h1>
-        <p>Glitch Linux is a Debian-based Linux distribution designed for users who prioritize privacy and anonymity. Currently under development.</p>
-    </div>
-
-    <div id="downloads-content" class="content hidden">
-        <h1>Downloads & Scripts</h1>
-        <p>Select a category to explore:</p>
-        <div>
-            <h2><a onclick="redirectToScripts()" style="color: #00ff00;">Scripts</a></h2>
-        </div>
-    </div>
-
-    <div id="contact-content" class="content hidden contact-content">
-        <p>📧 EMAIL: info@glitchlinux.com</p>
-        <p>💻 GITHUB: <a href="http://www.glitchlinux.com" target="_blank">www.glitchlinux.com</a></p>
-    </div>
+    <footer>
+        <p>&copy; 2025 gLiTcH Linux. All rights reserved.</p>
+    </footer>
 </body>
 </html>
