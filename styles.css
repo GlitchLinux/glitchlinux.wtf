@@ -47,11 +47,11 @@ header {
 
 @keyframes glitch-effect {
     0% { transform: translate(0); }
-    20% { transform: translate(-1px, 1px); }
-    40% { transform: translate(-1px, -1px); }
-    60% { transform: translate(1px, 1px); }
-    80% { transform: translate(1px, -1px); }
-    100% { transform: translate(0); }
+    10% { transform: translate(-1px, 1px); }
+    20% { transform: translate(-1px, -1px); }
+    40% { transform: translate(1px, 1px); }
+    60% { transform: translate(1px, -1px); }
+    750% { transform: translate(0); }
 }
 
 .tagline {
