@@ -41,7 +41,7 @@ header {
 
 .glitch::after {
     left: -2px;
-    text-shadow: 2px 0 #00ffff;
+    text-shadow: 2px 0 #555555;
     animation: glitch-effect 2s infinite;
 }
 
