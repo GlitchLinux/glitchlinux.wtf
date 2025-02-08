@@ -115,7 +115,8 @@ ul {
     color: #000;
     border: none;
     padding: 0.8rem 1.5rem;
-    font-size: 1rem;
+    font-size: 1.2rem; /* Increased font size */
+    font-weight: bold; /* Made text bold */
     cursor: pointer;
     margin: 0.5rem;
     transition: background-color 0.3s;
@@ -129,7 +130,7 @@ ul {
     margin-top: 1rem;
 }
 
-social-links a {
+.social-links a { /* Fixed missing dot before class */
     color: #00ff00;
     text-decoration: none;
     margin: 0 1rem;
