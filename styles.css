@@ -110,6 +110,12 @@ ul {
     padding-left: 2rem;
 }
 
+#features li {
+    font-size: 1.8rem; /* Increased font size by 1.5 times */
+    color: #00ff00;
+    opacity: 0.9;
+}
+
 .download-btn {
     background-color: #00ff00;
     color: #000;
