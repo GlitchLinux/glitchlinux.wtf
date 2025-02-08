@@ -12,33 +12,38 @@ check_apache_status() {
 
 # Function to update the website
 update_website() {
-    echo "Backing up current website directories..."
+    echo "Backing up current website files..."
 
-    # Backup current website directories to /etc/apache-undo
-    sudo cp -r /var/www/html /etc/apache-undo/html
-    sudo cp -r /var/www/glitchlinux.wtf /etc/apache-undo/glitchlinux.wtf
+    # Ensure backup directories exist
+    sudo mkdir -p /etc/apache-undo/html/html
+    sudo mkdir -p /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf
+
+    # Backup only files, not directories
+    sudo cp /var/www/html/index.html /etc/apache-undo/html/html/index.html
+    sudo cp /var/www/html/styles.css /etc/apache-undo/html/html/styles.css
+    sudo cp /var/www/glitchlinux.wtf/index.html /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/index.html
+    sudo cp /var/www/glitchlinux.wtf/styles.css /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/styles.css
 
     # Define temporary directory for cloning the repository
     TEMP_DIR="/tmp/glitchlinux.wtf"
+    sudo rm -rf $TEMP_DIR  # Remove any existing temp directory
     sudo mkdir -p $TEMP_DIR
     cd $TEMP_DIR
 
     # Clone the GitHub repository
-    sudo git clone https://github.com/GlitchLinux/glitchlinux.wtf.git
+    sudo git clone https://github.com/GlitchLinux/glitchlinux.wtf.git $TEMP_DIR
 
-    # Check if the files exist before copying them into both directories
-    if [[ -f "$TEMP_DIR/glitchlinux.wtf/index.html" ]]; then
-        # Copy updated files to both locations
-        sudo cp $TEMP_DIR/glitchlinux.wtf/index.html /var/www/html/index.html
-        sudo cp $TEMP_DIR/glitchlinux.wtf/index.html /var/www/glitchlinux.wtf/index.html
+    # Overwrite existing files with new ones if they exist
+    if [[ -f "$TEMP_DIR/index.html" ]]; then
+        sudo cp $TEMP_DIR/index.html /var/www/html/index.html
+        sudo cp $TEMP_DIR/index.html /var/www/glitchlinux.wtf/index.html
     else
         echo "Error: index.html not found!"
     fi
 
-    if [[ -f "$TEMP_DIR/glitchlinux.wtf/styles.css" ]]; then
-        # Copy updated files to both locations
-        sudo cp $TEMP_DIR/glitchlinux.wtf/styles.css /var/www/html/styles.css
-        sudo cp $TEMP_DIR/glitchlinux.wtf/styles.css /var/www/glitchlinux.wtf/styles.css
+    if [[ -f "$TEMP_DIR/styles.css" ]]; then
+        sudo cp $TEMP_DIR/styles.css /var/www/html/styles.css
+        sudo cp $TEMP_DIR/styles.css /var/www/glitchlinux.wtf/styles.css
     else
         echo "Error: styles.css not found!"
     fi
@@ -63,11 +68,24 @@ update_website() {
 undo_last_update() {
     echo "Restoring the previous website configuration from backup..."
 
-    # Restore previous website directories from backup
-    sudo cp -r /etc/apache-undo/html /var/www/html
-    sudo cp -r /etc/apache-undo/glitchlinux.wtf /var/www/glitchlinux.wtf
+    # Check if backup files exist before restoring
+    if [[ ! -f "/etc/apache-undo/html/html/index.html" || ! -f "/etc/apache-undo/html/html/styles.css" ]]; then
+        echo "No backup files exist"
+        main_menu  # Prompt back to menu
+    fi
 
-    # Set correct ownership and permissions for Apache to access the files
+    if [[ ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/index.html" || ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/styles.css" ]]; then
+        echo "No backup files exist"
+        main_menu  # Prompt back to menu
+    fi
+
+    # Restore files if they exist
+    sudo cp /etc/apache-undo/html/html/index.html /var/www/html/index.html
+    sudo cp /etc/apache-undo/html/html/styles.css /var/www/html/styles.css
+    sudo cp /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/index.html /var/www/glitchlinux.wtf/index.html
+    sudo cp /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/styles.css /var/www/glitchlinux.wtf/styles.css
+
+    # Set correct ownership and permissions
     sudo chown -R www-data:www-data /var/www/html
     sudo chown -R www-data:www-data /var/www/glitchlinux.wtf
     sudo chmod -R 755 /var/www/html
