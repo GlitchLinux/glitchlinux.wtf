@@ -11,9 +11,18 @@ cd $TEMP_DIR
 # Clone the GitHub repository
 git clone https://github.com/GlitchLinux/glitchlinux.wtf.git
 
-# Move the files to the correct Apache location (excluding splash.png)
-cp $TEMP_DIR/glitchlinux.html/index.html $WEB_ROOT/index.html
-cp $TEMP_DIR/glitchlinux.html/styles.css $WEB_ROOT/styles.css
+# Check if the files exist before copying them
+if [[ -f "$TEMP_DIR/glitchlinux.wtf/index.html" ]]; then
+    cp $TEMP_DIR/glitchlinux.wtf/index.html $WEB_ROOT/index.html
+else
+    echo "Error: index.html not found!"
+fi
+
+if [[ -f "$TEMP_DIR/glitchlinux.wtf/styles.css" ]]; then
+    cp $TEMP_DIR/glitchlinux.wtf/styles.css $WEB_ROOT/styles.css
+else
+    echo "Error: styles.css not found!"
+fi
 
 # Set correct ownership and permissions for Apache to access the files
 sudo chown -R www-data:www-data $WEB_ROOT
