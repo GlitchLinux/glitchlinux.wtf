@@ -1,0 +1,147 @@
+/* General Styles */
+body {
+    background-color: #0a0a0a;
+    color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    text-align: center;
+    padding: 2rem 0;
+    background-color: #000;
+    border-bottom: 2px solid #00ff00;
+}
+
+.glitch {
+    font-size: 4rem;
+    font-weight: bold;
+    position: relative;
+    color: #00ff00;
+    animation: glitch-effect 2s infinite;
+}
+
+.glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #00ff00;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00ff;
+    animation: glitch-effect 3s infinite;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: 2px 0 #00ffff;
+    animation: glitch-effect 2s infinite;
+}
+
+@keyframes glitch-effect {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #00ff00;
+    opacity: 0.8;
+}
+
+nav {
+    background-color: #111;
+    padding: 1rem;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 1rem;
+}
+
+nav ul li a {
+    color: #00ff00;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+section {
+    padding: 2rem;
+    border-bottom: 1px solid #00ff00;
+}
+
+h2 {
+    color: #00ff00;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+p, ul {
+    color: #00ff00;
+    opacity: 0.9;
+}
+
+ul {
+    list-style-type: square;
+    padding-left: 2rem;
+}
+
+.download-btn {
+    background-color: #00ff00;
+    color: #000;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0.5rem;
+    transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+    background-color: #00cc00;
+}
+
+.social-links {
+    margin-top: 1rem;
+}
+
+.social-links a {
+    color: #00ff00;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: bold;
+}
+
+.social-links a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #000;
+    border-top: 2px solid #00ff00;
+    margin-top: 2rem;
+}
