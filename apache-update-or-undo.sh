@@ -21,8 +21,15 @@ update_website() {
     # Backup only files, not directories
     sudo cp /var/www/html/index.html /etc/apache-undo/html/html/index.html
     sudo cp /var/www/html/styles.css /etc/apache-undo/html/html/styles.css
+    sudo cp /var/www/html/qemu-quickboot.html /etc/apache-undo/html/html/qemu-quickboot.html
+    sudo cp /var/www/html/Qemu-QuickBoot.png /etc/apache-undo/html/html/Qemu-QuickBoot.png
+    sudo cp /var/www/html/Qemu-QuickBoot-2.png /etc/apache-undo/html/html/Qemu-QuickBoot-2.png
+
     sudo cp /var/www/glitchlinux.wtf/index.html /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/index.html
     sudo cp /var/www/glitchlinux.wtf/styles.css /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/styles.css
+    sudo cp /var/www/glitchlinux.wtf/qemu-quickboot.html /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/qemu-quickboot.html
+    sudo cp /var/www/glitchlinux.wtf/Qemu-QuickBoot.png /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/Qemu-QuickBoot.png
+    sudo cp /var/www/glitchlinux.wtf/Qemu-QuickBoot-2.png /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/Qemu-QuickBoot-2.png
 
     # Define temporary directory for cloning the repository
     TEMP_DIR="/tmp/glitchlinux.wtf"
@@ -48,6 +55,27 @@ update_website() {
         echo "Error: styles.css not found!"
     fi
 
+    if [[ -f "$TEMP_DIR/qemu-quickboot.html" ]]; then
+        sudo cp $TEMP_DIR/qemu-quickboot.html /var/www/html/qemu-quickboot.html
+        sudo cp $TEMP_DIR/qemu-quickboot.html /var/www/glitchlinux.wtf/qemu-quickboot.html
+    else
+        echo "Error: qemu-quickboot.html not found!"
+    fi
+
+    if [[ -f "$TEMP_DIR/Qemu-QuickBoot.png" ]]; then
+        sudo cp $TEMP_DIR/Qemu-QuickBoot.png /var/www/html/Qemu-QuickBoot.png
+        sudo cp $TEMP_DIR/Qemu-QuickBoot.png /var/www/glitchlinux.wtf/Qemu-QuickBoot.png
+    else
+        echo "Error: Qemu-QuickBoot.png not found!"
+    fi
+
+    if [[ -f "$TEMP_DIR/Qemu-QuickBoot-2.png" ]]; then
+        sudo cp $TEMP_DIR/Qemu-QuickBoot-2.png /var/www/html/Qemu-QuickBoot-2.png
+        sudo cp $TEMP_DIR/Qemu-QuickBoot-2.png /var/www/glitchlinux.wtf/Qemu-QuickBoot-2.png
+    else
+        echo "Error: Qemu-QuickBoot-2.png not found!"
+    fi
+
     # Clean up the temporary directory
     sudo rm -rf $TEMP_DIR
 
@@ -69,12 +97,12 @@ undo_last_update() {
     echo "Restoring the previous website configuration from backup..."
 
     # Check if backup files exist before restoring
-    if [[ ! -f "/etc/apache-undo/html/html/index.html" || ! -f "/etc/apache-undo/html/html/styles.css" ]]; then
+    if [[ ! -f "/etc/apache-undo/html/html/index.html" || ! -f "/etc/apache-undo/html/html/styles.css" || ! -f "/etc/apache-undo/html/html/qemu-quickboot.html" || ! -f "/etc/apache-undo/html/html/Qemu-QuickBoot.png" || ! -f "/etc/apache-undo/html/html/Qemu-QuickBoot-2.png" ]]; then
         echo "No backup files exist"
         main_menu  # Prompt back to menu
     fi
 
-    if [[ ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/index.html" || ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/styles.css" ]]; then
+    if [[ ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/index.html" || ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/styles.css" || ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/qemu-quickboot.html" || ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/Qemu-QuickBoot.png" || ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/Qemu-QuickBoot-2.png" ]]; then
         echo "No backup files exist"
         main_menu  # Prompt back to menu
     fi
@@ -82,8 +110,15 @@ undo_last_update() {
     # Restore files if they exist
     sudo cp /etc/apache-undo/html/html/index.html /var/www/html/index.html
     sudo cp /etc/apache-undo/html/html/styles.css /var/www/html/styles.css
+    sudo cp /etc/apache-undo/html/html/qemu-quickboot.html /var/www/html/qemu-quickboot.html
+    sudo cp /etc/apache-undo/html/html/Qemu-QuickBoot.png /var/www/html/Qemu-QuickBoot.png
+    sudo cp /etc/apache-undo/html/html/Qemu-QuickBoot-2.png /var/www/html/Qemu-QuickBoot-2.png
+
     sudo cp /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/index.html /var/www/glitchlinux.wtf/index.html
     sudo cp /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/styles.css /var/www/glitchlinux.wtf/styles.css
+    sudo cp /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/qemu-quickboot.html /var/www/glitchlinux.wtf/qemu-quickboot.html
+    sudo cp /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/Qemu-QuickBoot.png /var/www/glitchlinux.wtf/Qemu-QuickBoot.png
+    sudo cp /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/Qemu-QuickBoot-2.png /var/www/glitchlinux.wtf/Qemu-QuickBoot-2.png
 
     # Set correct ownership and permissions
     sudo chown -R www-data:www-data /var/www/html
