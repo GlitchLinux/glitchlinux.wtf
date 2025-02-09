@@ -1,18 +1,47 @@
 /* General Styles */
-body {
+html, body {
+    margin: 0;
+    padding: 0;
     background-color: #0a0a0a;
     color: #00ff00;
     font-family: 'Courier New', Courier, monospace;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
+    line-height: 1.8;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: auto;   /* Enable vertical scrollbar */
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: transparent transparent; /* Hide scrollbar by default */
+    transition: scrollbar-color 0.3s ease; /* Smooth transition */
 }
 
+/* Show scrollbar on hover or when scrolling */
+body:hover {
+    scrollbar-color: #5A5A5A #0a0a0a; /* Show scrollbar */
+}
+
+/* Custom scrollbar for WebKit browsers (Chrome, Safari) */
+body::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+    background: #0a0a0a; /* Track color */
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #5A5A5A; /* Thumb color */
+    border-radius: 4px; /* Rounded corners */
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #00ff00; /* Thumb color on hover */
+}
+
+/* Header Styles */
 header {
     text-align: center;
     padding: 2rem 0;
     background-color: #000;
-    border-bottom: 2px solid #5A5A5A; /* Changed from green to grey */
+    border-bottom: 2px solid #5A5A5A; /* Grey border */
 }
 
 .glitch {
@@ -55,11 +84,12 @@ header {
 }
 
 .tagline {
-    font-size: 1.6625rem; /* Increased font size by 1 point */
+    font-size: 1.6625rem; /* Increased font size */
     color: #00ff00;
     opacity: 0.8;
 }
 
+/* Navigation Styles */
 nav {
     background-color: #111;
     padding: 1rem;
@@ -85,24 +115,25 @@ nav ul li a {
 
 nav ul li a:hover {
     text-decoration: underline;
+    color: #00cc00; /* Change link color on hover */
 }
 
+/* Section Styles */
 section {
     padding: 2rem;
-    border-bottom: 1px solid #5A5A5A; /* Changed from green to grey */
+    border-bottom: 1px solid #5A5A5A; /* Grey border */
 }
 
-/* Change category titles to grey */
 h2 {
-    color: #5A5A5A;
+    color: #5A5A5A; /* Grey heading */
     font-size: 2rem;
     margin-bottom: 1rem;
 }
 
-/* Keep paragraph text green */
 p, ul {
-    color: #00ff00;
+    color: #00ff00; /* Green text */
     opacity: 0.9;
+    font-size: 1.15rem; /* Standardized font size */
 }
 
 ul {
@@ -111,32 +142,35 @@ ul {
 }
 
 #features li {
-    font-size: 1.15rem; /* Increased font size by 1.5 times */
+    font-size: 1.15rem; /* Increased font size */
     color: #00ff00;
     opacity: 0.9;
 }
 
+/* Button Styles */
 .download-btn {
     background-color: #00ff00;
     color: #000;
     border: none;
     padding: 0.8rem 1.5rem;
     font-size: 1.2rem; /* Increased font size */
-    font-weight: bold; /* Made text bold */
+    font-weight: bold; /* Bold text */
     cursor: pointer;
     margin: 0.5rem;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
 }
 
 .download-btn:hover {
     background-color: #00cc00;
+    transform: scale(1.05); /* Slightly enlarge button on hover */
 }
 
+/* Social Links Styles */
 .social-links {
     margin-top: 1rem;
 }
 
-.social-links a { /* Fixed missing dot before class */
+.social-links a {
     color: #00ff00;
     text-decoration: none;
     margin: 0 1rem;
@@ -147,10 +181,22 @@ ul {
     text-decoration: underline;
 }
 
+/* Footer Styles */
 footer {
     text-align: center;
     padding: 1rem;
     background-color: #000;
-    border-top: 2px solid #5A5A5A; /* Changed from green to grey */
+    border-top: 2px solid #5A5A5A; /* Grey border */
     margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .glitch {
+        font-size: 2.5rem; /* Smaller font size for mobile */
+    }
+    nav ul li {
+        display: block; /* Stack nav items vertically on mobile */
+        margin: 0.5rem 0;
+    }
 }
