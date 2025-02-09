@@ -133,7 +133,7 @@ h2 {
 p, ul {
     color: #00ff00; /* Green text */
     opacity: 0.9;
-    font-size: 1.2rem; /* Standardized font size */
+    font-size: 2rem; /* Standardized font size */
 }
 
 ul {
@@ -142,7 +142,7 @@ ul {
 }
 
 #features li {
-    font-size: 1.2rem; /* Increased font size */
+    font-size: 2rem; /* Increased font size */
     color: #00ff00;
     opacity: 0.9;
 }
