@@ -121,11 +121,11 @@ nav ul li a:hover {
 /* Section Styles */
 section {
     padding: 2rem;
-    border-bottom: 1px solid #5A5A5A; /* Grey border */
+    border-bottom: 1px solid #7a7a7a; /* Grey border */
 }
 
 h2 {
-    color: #5A5A5A; /* Grey heading */
+    color: #7a7a7a; /* Grey heading */
     font-size: 2rem;
     margin-bottom: 1rem;
 }
