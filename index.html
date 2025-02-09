@@ -21,7 +21,7 @@
             <li><a href="#features">Features</a></li>
             <li><a href="#download">Downloads</a></li>
             <li><a href="#scripts">Scripts</a></li>
-            <li><a href="#qemu-quickboot">QEMU-QuickBoot</a></li>
+            <li><a href="qemu-quickboot.html">QEMU-QuickBoot</a></li> <!-- New link -->
             <li><a href="https://github.com/GlitchLinux">GitHub</a></li>
         </ul>
     </nav>
@@ -67,51 +67,6 @@
                 <p>Bash script that automates the setup of an encrypted persistent partition on a live system based on Debian/Ubuntu.</p>
             </li>
         </ul>
-    </section>
-
-    <section id="qemu-quickboot">
-        <h2>QEMU-QuickBoot</h2>
-        <p>QEMU-QuickBoot is a Zenity GUI interface for quick and easy deployment of QEMU Virtual Machines.</p>
-
-        <h3>Features</h3>
-        <ul>
-            <li>User-Friendly Interface: Utilizes Zenity to present a straightforward interface for selecting VM boot sources and configurations.</li>
-            <li>Multiple Boot Options: Supports booting VMs from connected devices, various file formats (.vhd, .img, .iso), and ISO images with virtual drives or physical devices.</li>
-            <li>Dynamic RAM Configuration: Allows users to specify the amount of RAM (in MB) allocated to the VM.</li>
-            <li>BIOS and UEFI Support: Provides options for booting in BIOS or UEFI mode.</li>
-            <li>Error Handling: Includes error handling to ensure smooth operation and user feedback throughout the VM setup process.</li>
-        </ul>
-
-        <h3>Boot Modes</h3>
-        <h4>1. Boot from Any Connected Device</h4>
-        <p><strong>Description:</strong> Boot the virtual machine directly from a connected device (USB drive, SD card, or internal/external SSD/HDD).</p>
-        <p><strong>Potential Use Cases:</strong> Testing bootable storage media without a physical machine or system reboot, rapid deployment of virtual environments.</p>
-
-        <h4>2. Boot from File (.vhd, .img, .iso)</h4>
-        <p><strong>Description:</strong> Boot a VM directly from any file, supporting formats like .vhd, .img, or an ISO file.</p>
-        <p><strong>Supported File Types:</strong> .qcow2, .iso, .qcow, .raw, .vmdk, .vdi, .vhdx, .vhd, .cloop, .qed, .parallels, .bochs, .dmg, .blkdebug</p>
-        <p><strong>Potential Use Cases:</strong> Quick setup for testing various file formats, booting any Linux live distro, WinPE ISO, etc.</p>
-
-        <h4>3. ISO & Drive</h4>
-        <p><strong>Description:</strong> Combines booting from an ISO or IMG file as a virtual DVD with a virtual disk file or physical device as a virtual drive.</p>
-        <p><strong>Be Aware:</strong> All physical devices are mounted as virtual internal drives in the VM.</p>
-        <p><strong>Potential Use Cases:</strong> Installing an OS using a virtual DVD and configuring a separate virtual disk, creating portable systems on USB devices or SD cards, deploying rescue tools on crashed drives without rebooting.</p>
-
-        <h3>Potential Use Cases</h3>
-        <ul>
-            <li>Installing OS with Virtual DVD and Separate Virtual Disk: For testing, development, and experimentation with various operating systems.</li>
-            <li>Mimicking Real Hardware Setup: Deploy an installer DVD alongside a dedicated virtual disk.</li>
-            <li>Efficient OS Installation: Install an OS to a virtual disk or second internal disk directly from your host desktop.</li>
-            <li>Creating Portable Systems: Install an OS on USB devices or SD cards for on-the-go environments.</li>
-            <li>Deploying Rescue Tools: Deploy rescue tools onto crashed drives without rebooting.</li>
-        </ul>
-
-        <h3>License</h3>
-        <p>This project is licensed under the MIT License. See the <a href="https://github.com/GlitchLinux/QEMU-QuickBoot/blob/main/LICENSE">LICENSE</a> file for details.</p>
-
-        <h3>Contributing</h3>
-        <p>Feel free to submit issues or pull requests if you find any bugs or have suggestions for improvements.</p>
-        <p>Visit our <a href="https://github.com/GlitchLinux/QEMU-QuickBoot">GitHub repository</a> to contribute.</p>
     </section>
 
     <section id="community">
