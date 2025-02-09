@@ -41,7 +41,7 @@ header {
     text-align: center;
     padding: 2rem 0;
     background-color: #000;
-    border-bottom: 2px solid #2e2d2d; /* Grey border */
+    border-bottom: 2px solid #5A5A5A; /* Grey border */
 }
 
 .glitch {
@@ -80,7 +80,7 @@ header {
     20% { transform: translate(-1px, -1px); }
     40% { transform: translate(1px, 1px); }
     60% { transform: translate(1px, -1px); }
-    400% { transform: translate(0); }
+    750% { transform: translate(0); }
 }
 
 .tagline {
@@ -108,7 +108,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #00ff00; /* Updated grey for navigation links */
+    color: #00ff00;
     text-decoration: none;
     font-weight: bold;
 }
@@ -121,11 +121,11 @@ nav ul li a:hover {
 /* Section Styles */
 section {
     padding: 2rem;
-    border-bottom: 1px solid #7a7a7a; /* Grey border */
+    border-bottom: 1px solid #5A5A5A; /* Grey border */
 }
 
 h2 {
-    color: #808080; /* Updated grey for headings */
+    color: #5A5A5A; /* Grey heading */
     font-size: 2rem;
     margin-bottom: 1rem;
 }
@@ -193,7 +193,7 @@ ul {
 .image-container img {
     max-width: 100%;
     height: auto;
-    border: 2px solid #333232;
+    border: 2px solid #5A5A5A;
     border-radius: 8px;
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
@@ -208,13 +208,8 @@ footer {
     text-align: center;
     padding: 1rem;
     background-color: #000;
-    border-top: 2px solid #333232; /* Grey border */
+    border-top: 2px solid #5A5A5A; /* Grey border */
     margin-top: 2rem;
-}
-
-/* Specific Content Color Updates */
-h1, h2, p, ul li, nav ul li a {
-    color: #808080; /* Color change for specific sections */
 }
 
 /* Responsive Design */
