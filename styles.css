@@ -133,7 +133,7 @@ h2 {
 p, ul {
     color: #00ff00; /* Green text */
     opacity: 0.9;
-    font-size: 2rem; /* Standardized font size */
+    font-size: 1.15rem; /* Standardized font size */
 }
 
 ul {
@@ -142,7 +142,7 @@ ul {
 }
 
 #features li {
-    font-size: 2rem; /* Increased font size */
+    font-size: 1.15rem; /* Increased font size */
     color: #00ff00;
     opacity: 0.9;
 }
@@ -152,8 +152,8 @@ ul {
     background-color: #00ff00;
     color: #000;
     border: none;
-    padding: 0.8rem 1.6rem;
-    font-size: 1.6rem; /* Increased font size */
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem; /* Increased font size */
     font-weight: bold; /* Bold text */
     cursor: pointer;
     margin: 0.5rem;
