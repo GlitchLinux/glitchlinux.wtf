@@ -108,7 +108,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #7a7a7a;
+    color: #333232;
     text-decoration: none;
     font-weight: bold;
 }
@@ -193,7 +193,7 @@ ul {
 .image-container img {
     max-width: 100%;
     height: auto;
-    border: 2px solid #5A5A5A;
+    border: 2px solid #333232;
     border-radius: 8px;
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
@@ -208,7 +208,7 @@ footer {
     text-align: center;
     padding: 1rem;
     background-color: #000;
-    border-top: 2px solid #5A5A5A; /* Grey border */
+    border-top: 2px solid #333232; /* Grey border */
     margin-top: 2rem;
 }
 
