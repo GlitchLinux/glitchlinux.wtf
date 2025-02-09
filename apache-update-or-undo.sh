@@ -24,7 +24,7 @@ update_website() {
     sudo cp /var/www/html/qemu-quickboot.html /etc/apache-undo/html/html/qemu-quickboot.html
     sudo cp /var/www/html/Qemu-QuickBoot.png /etc/apache-undo/html/html/Qemu-QuickBoot.png
     sudo cp /var/www/html/Qemu-QuickBoot-2.png /etc/apache-undo/html/html/Qemu-QuickBoot-2.png
-
+    
     sudo cp /var/www/glitchlinux.wtf/index.html /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/index.html
     sudo cp /var/www/glitchlinux.wtf/styles.css /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/styles.css
     sudo cp /var/www/glitchlinux.wtf/qemu-quickboot.html /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/qemu-quickboot.html
@@ -41,40 +41,14 @@ update_website() {
     sudo git clone https://github.com/GlitchLinux/glitchlinux.wtf.git $TEMP_DIR
 
     # Overwrite existing files with new ones if they exist
-    if [[ -f "$TEMP_DIR/index.html" ]]; then
-        sudo cp $TEMP_DIR/index.html /var/www/html/index.html
-        sudo cp $TEMP_DIR/index.html /var/www/glitchlinux.wtf/index.html
-    else
-        echo "Error: index.html not found!"
-    fi
-
-    if [[ -f "$TEMP_DIR/styles.css" ]]; then
-        sudo cp $TEMP_DIR/styles.css /var/www/html/styles.css
-        sudo cp $TEMP_DIR/styles.css /var/www/glitchlinux.wtf/styles.css
-    else
-        echo "Error: styles.css not found!"
-    fi
-
-    if [[ -f "$TEMP_DIR/qemu-quickboot.html" ]]; then
-        sudo cp $TEMP_DIR/qemu-quickboot.html /var/www/html/qemu-quickboot.html
-        sudo cp $TEMP_DIR/qemu-quickboot.html /var/www/glitchlinux.wtf/qemu-quickboot.html
-    else
-        echo "Error: qemu-quickboot.html not found!"
-    fi
-
-    if [[ -f "$TEMP_DIR/Qemu-QuickBoot.png" ]]; then
-        sudo cp $TEMP_DIR/Qemu-QuickBoot.png /var/www/html/Qemu-QuickBoot.png
-        sudo cp $TEMP_DIR/Qemu-QuickBoot.png /var/www/glitchlinux.wtf/Qemu-QuickBoot.png
-    else
-        echo "Error: Qemu-QuickBoot.png not found!"
-    fi
-
-    if [[ -f "$TEMP_DIR/Qemu-QuickBoot-2.png" ]]; then
-        sudo cp $TEMP_DIR/Qemu-QuickBoot-2.png /var/www/html/Qemu-QuickBoot-2.png
-        sudo cp $TEMP_DIR/Qemu-QuickBoot-2.png /var/www/glitchlinux.wtf/Qemu-QuickBoot-2.png
-    else
-        echo "Error: Qemu-QuickBoot-2.png not found!"
-    fi
+    for file in index.html styles.css qemu-quickboot.html Qemu-QuickBoot.png Qemu-QuickBoot-2.png; do
+        if [[ -f "$TEMP_DIR/$file" ]]; then
+            sudo cp "$TEMP_DIR/$file" /var/www/html/
+            sudo cp "$TEMP_DIR/$file" /var/www/glitchlinux.wtf/
+        else
+            echo "Error: $file not found!"
+        fi
+    done
 
     # Clean up the temporary directory
     sudo rm -rf $TEMP_DIR
@@ -96,29 +70,15 @@ update_website() {
 undo_last_update() {
     echo "Restoring the previous website configuration from backup..."
 
-    # Check if backup files exist before restoring
-    if [[ ! -f "/etc/apache-undo/html/html/index.html" || ! -f "/etc/apache-undo/html/html/styles.css" || ! -f "/etc/apache-undo/html/html/qemu-quickboot.html" || ! -f "/etc/apache-undo/html/html/Qemu-QuickBoot.png" || ! -f "/etc/apache-undo/html/html/Qemu-QuickBoot-2.png" ]]; then
-        echo "No backup files exist"
-        main_menu  # Prompt back to menu
-    fi
-
-    if [[ ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/index.html" || ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/styles.css" || ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/qemu-quickboot.html" || ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/Qemu-QuickBoot.png" || ! -f "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/Qemu-QuickBoot-2.png" ]]; then
-        echo "No backup files exist"
-        main_menu  # Prompt back to menu
-    fi
-
     # Restore files if they exist
-    sudo cp /etc/apache-undo/html/html/index.html /var/www/html/index.html
-    sudo cp /etc/apache-undo/html/html/styles.css /var/www/html/styles.css
-    sudo cp /etc/apache-undo/html/html/qemu-quickboot.html /var/www/html/qemu-quickboot.html
-    sudo cp /etc/apache-undo/html/html/Qemu-QuickBoot.png /var/www/html/Qemu-QuickBoot.png
-    sudo cp /etc/apache-undo/html/html/Qemu-QuickBoot-2.png /var/www/html/Qemu-QuickBoot-2.png
-
-    sudo cp /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/index.html /var/www/glitchlinux.wtf/index.html
-    sudo cp /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/styles.css /var/www/glitchlinux.wtf/styles.css
-    sudo cp /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/qemu-quickboot.html /var/www/glitchlinux.wtf/qemu-quickboot.html
-    sudo cp /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/Qemu-QuickBoot.png /var/www/glitchlinux.wtf/Qemu-QuickBoot.png
-    sudo cp /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/Qemu-QuickBoot-2.png /var/www/glitchlinux.wtf/Qemu-QuickBoot-2.png
+    for file in index.html styles.css qemu-quickboot.html Qemu-QuickBoot.png Qemu-QuickBoot-2.png; do
+        if [[ -f "/etc/apache-undo/html/html/$file" ]]; then
+            sudo cp "/etc/apache-undo/html/html/$file" /var/www/html/
+            sudo cp "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/$file" /var/www/glitchlinux.wtf/
+        else
+            echo "Error: No backup for $file"
+        fi
+    done
 
     # Set correct ownership and permissions
     sudo chown -R www-data:www-data /var/www/html
@@ -133,13 +93,30 @@ undo_last_update() {
     echo "Previous configuration was successfully restored from backup."
 }
 
+# Function to reboot the webserver
+reboot_webserver() {
+    echo "Rebooting webserver..."
+    sudo systemctl restart apache2
+    echo "Webserver rebooted successfully."
+}
+
+# Function to backup webserver files
+backup_webserver() {
+    echo "Creating backup of webserver files..."
+    BACKUP_PATH="/home/$USER/Desktop/Apache-Full-Backup.zip"
+    sudo zip -r $BACKUP_PATH /etc/apache2 /var/www/html /var/www/glitchlinux.wtf
+    echo "Backup created at $BACKUP_PATH."
+}
+
 # Main menu
 main_menu() {
     echo "Choose an option:"
     echo "[1] UPDATE WEBSITE"
     echo "[2] UNDO LAST UPDATE"
     echo "[3] WEBSERVER STATUS"
-    echo "[4] EXIT"
+    echo "[4] WEBSERVER REBOOT"
+    echo "[5] WEBSERVER BACKUP"
+    echo "[6] EXIT"
 
     read -p "Enter your choice: " choice
 
@@ -157,6 +134,14 @@ main_menu() {
             main_menu
             ;;
         4)
+            reboot_webserver
+            main_menu
+            ;;
+        5)
+            backup_webserver
+            main_menu
+            ;;
+        6)
             echo "Exiting script."
             exit 0
             ;;
