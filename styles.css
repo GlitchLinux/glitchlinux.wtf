@@ -41,7 +41,7 @@ header {
     text-align: center;
     padding: 2rem 0;
     background-color: #000;
-    border-bottom: 2px solid #262626; /* Updated grey border */
+    border-bottom: 2px solid #808080; /* Updated grey border */
 }
 
 .glitch {
@@ -121,11 +121,11 @@ nav ul li a:hover {
 /* Section Styles */
 section {
     padding: 2rem;
-    border-bottom: 1px solid #262626; /* Updated grey border */
+    border-bottom: 1px solid #808080; /* Updated grey border */
 }
 
 h2 {
-    color: #262626; /* Updated grey heading */
+    color: #808080; /* Updated grey heading */
     font-size: 2rem;
     margin-bottom: 1rem;
 }
@@ -193,7 +193,7 @@ ul {
 .image-container img {
     max-width: 100%;
     height: auto;
-    border: 2px solid #262626; /* Updated grey border */
+    border: 2px solid #808080; /* Updated grey border */
     border-radius: 8px;
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
@@ -208,7 +208,7 @@ footer {
     text-align: center;
     padding: 1rem;
     background-color: #000;
-    border-top: 2px solid #262626; /* Updated grey border */
+    border-top: 2px solid #808080; /* Updated grey border */
     margin-top: 2rem;
 }
 
@@ -221,4 +221,19 @@ footer {
         display: block; /* Stack nav items vertically on mobile */
         margin: 0.5rem 0;
     }
+}
+
+/* Custom text and links for specific sections */
+h1, h2, h3, .section-title {
+    color: #808080; /* Updated grey for titles */
+}
+
+a {
+    color: #808080; /* Updated grey for links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #00cc00; /* Highlighted link on hover */
 }
