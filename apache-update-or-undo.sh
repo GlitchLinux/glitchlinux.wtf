@@ -18,7 +18,7 @@ update_website() {
     sudo mkdir -p /etc/apache-undo/html/html
     sudo mkdir -p /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf
 
-    # Backup only files, not directories
+    # Backup only files, not directories, excluding FILES directory
     sudo cp /var/www/html/index.html /etc/apache-undo/html/html/index.html
     sudo cp /var/www/html/styles.css /etc/apache-undo/html/html/styles.css
     sudo cp /var/www/html/qemu-quickboot.html /etc/apache-undo/html/html/qemu-quickboot.html
@@ -70,7 +70,7 @@ update_website() {
 undo_last_update() {
     echo "Restoring the previous website configuration from backup..."
 
-    # Restore files if they exist
+    # Restore files if they exist, but skip the /FILES/ directory
     for file in index.html styles.css qemu-quickboot.html Qemu-QuickBoot.png Qemu-QuickBoot-2.png; do
         if [[ -f "/etc/apache-undo/html/html/$file" ]]; then
             sudo cp "/etc/apache-undo/html/html/$file" /var/www/html/
@@ -90,7 +90,7 @@ undo_last_update() {
     sudo systemctl restart apache2
 
     # Confirm restoration
-    echo "Previous configuration was successfully restored from backup."
+    echo "Previous configuration was successfully restored from backup, excluding FILES."
 }
 
 # Function to reboot the webserver
@@ -104,7 +104,10 @@ reboot_webserver() {
 backup_webserver() {
     echo "Creating backup of webserver files..."
     BACKUP_PATH="/home/$USER/Desktop/Apache-Full-Backup.zip"
-    sudo zip -r $BACKUP_PATH /etc/apache2 /var/www/html /var/www/glitchlinux.wtf
+    
+    # Exclude the /var/www/glitchlinux.wtf/FILES/ directory from the backup
+    sudo zip -r $BACKUP_PATH /etc/apache2 /var/www/html /var/www/glitchlinux.wtf -x "/var/www/glitchlinux.wtf/FILES/*"
+    
     echo "Backup created at $BACKUP_PATH."
 }
 
