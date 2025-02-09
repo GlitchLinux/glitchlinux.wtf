@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <title>QEMU-QuickBoot - gLiTcH Linux</title>
+    <meta name="description" content="QEMU-QuickBoot - A Zenity GUI interface for quick and easy deployment of QEMU Virtual Machines.">
+    <meta name="keywords" content="QEMU, Virtual Machines, GUI, Zenity, gLiTcH Linux">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="glitch" data-text="QEMU-QuickBoot">QEMU-QuickBoot</div>
+        <p class="tagline">Quick and Easy Deployment of QEMU Virtual Machines.</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#boot-modes">Boot Modes</a></li>
+            <li><a href="#use-cases">Use Cases</a></li>
+            <li><a href="#license">License</a></li>
+            <li><a href="#contributing">Contributing</a></li>
+        </ul>
+    </nav>
+
+    <section id="features">
+        <h2>Features</h2>
+        <ul>
+            <li>User-Friendly Interface: Utilizes Zenity to present a straightforward interface for selecting VM boot sources and configurations.</li>
+            <li>Multiple Boot Options: Supports booting VMs from connected devices, various file formats (.vhd, .img, .iso), and ISO images with virtual drives or physical devices.</li>
+            <li>Dynamic RAM Configuration: Allows users to specify the amount of RAM (in MB) allocated to the VM.</li>
+            <li>BIOS and UEFI Support: Provides options for booting in BIOS or UEFI mode.</li>
+            <li>Error Handling: Includes error handling to ensure smooth operation and user feedback throughout the VM setup process.</li>
+        </ul>
+    </section>
+
+    <section id="boot-modes">
+        <h2>Boot Modes</h2>
+        <h3>1. Boot from Any Connected Device</h3>
+        <p><strong>Description:</strong> Boot the virtual machine directly from a connected device (USB drive, SD card, or internal/external SSD/HDD).</p>
+        <p><strong>Potential Use Cases:</strong> Testing bootable storage media without a physical machine or system reboot, rapid deployment of virtual environments.</p>
+
+        <h3>2. Boot from File (.vhd, .img, .iso)</h3>
+        <p><strong>Description:</strong> Boot a VM directly from any file, supporting formats like .vhd, .img, or an ISO file.</p>
+        <p><strong>Supported File Types:</strong> .qcow2, .iso, .qcow, .raw, .vmdk, .vdi, .vhdx, .vhd, .cloop, .qed, .parallels, .bochs, .dmg, .blkdebug</p>
+        <p><strong>Potential Use Cases:</strong> Quick setup for testing various file formats, booting any Linux live distro, WinPE ISO, etc.</p>
+
+        <h3>3. ISO & Drive</h3>
+        <p><strong>Description:</strong> Combines booting from an ISO or IMG file as a virtual DVD with a virtual disk file or physical device as a virtual drive.</p>
+        <p><strong>Be Aware:</strong> All physical devices are mounted as virtual internal drives in the VM.</p>
+        <p><strong>Potential Use Cases:</strong> Installing an OS using a virtual DVD and configuring a separate virtual disk, creating portable systems on USB devices or SD cards, deploying rescue tools on crashed drives without rebooting.</p>
+    </section>
+
+    <section id="use-cases">
+        <h2>Potential Use Cases</h2>
+        <ul>
+            <li>Installing OS with Virtual DVD and Separate Virtual Disk: For testing, development, and experimentation with various operating systems.</li>
+            <li>Mimicking Real Hardware Setup: Deploy an installer DVD alongside a dedicated virtual disk.</li>
+            <li>Efficient OS Installation: Install an OS to a virtual disk or second internal disk directly from your host desktop.</li>
+            <li>Creating Portable Systems: Install an OS on USB devices or SD cards for on-the-go environments.</li>
+            <li>Deploying Rescue Tools: Deploy rescue tools onto crashed drives without rebooting.</li>
+        </ul>
+    </section>
+
+    <section id="images">
+        <h2>Screenshots</h2>
+        <div class="image-container">
+            <img src="/var/www/glitchlinux.wtf/Qemu-QuickBoot.png" alt="QEMU-QuickBoot Screenshot 1">
+            <img src="/var/www/glitchlinux.wtf/Qemu-QuickBoot-2.png" alt="QEMU-QuickBoot Screenshot 2">
+        </div>
+    </section>
+
+    <section id="license">
+        <h2>License</h2>
+        <p>This project is licensed under the MIT License. See the <a href="https://github.com/GlitchLinux/QEMU-QuickBoot/blob/main/LICENSE">LICENSE</a> file for details.</p>
+    </section>
+
+    <section id="contributing">
+        <h2>Contributing</h2>
+        <p>Feel free to submit issues or pull requests if you find any bugs or have suggestions for improvements.</p>
+        <p>Visit our <a href="https://github.com/GlitchLinux/QEMU-QuickBoot">GitHub repository</a> to contribute.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 gLiTcH Linux. All rights reserved.</p>
+    </footer>
+</body>
+</html>
