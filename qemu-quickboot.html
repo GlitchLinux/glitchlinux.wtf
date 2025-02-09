@@ -7,6 +7,60 @@
     <meta name="description" content="QEMU-QuickBoot - A Zenity GUI interface for quick and easy deployment of QEMU Virtual Machines.">
     <meta name="keywords" content="QEMU, Virtual Machines, GUI, Zenity, gLiTcH Linux">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add styles for the code block and copy button */
+        .code-block {
+            position: relative;
+            background-color: #0d1117; /* Dark background like GitHub */
+            padding: 10px;
+            border-radius: 6px; /* Slightly rounded corners */
+            margin: 20px 0;
+            font-family: monospace;
+            color: #c9d1d9; /* Light grey text like GitHub */
+            overflow-x: auto; /* Add horizontal scroll for long lines */
+            font-size: 16px; /* Increased font size */
+        }
+
+        .code-block pre {
+            margin: 0;
+        }
+
+        .code-block code {
+            display: block;
+            padding: 10px;
+            white-space: pre-wrap; /* Preserve formatting */
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #238636; /* Green button like GitHub */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+
+        .copy-button:hover {
+            background-color: #2ea043; /* Slightly lighter green on hover */
+        }
+
+        .image-container {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -18,14 +72,16 @@
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="#features">Features</a></li>
+            <li><a href="#screenshots">Screenshots</a></li>
+            <li><a href="#installation">Installation</a></li>
             <li><a href="#boot-modes">Boot Modes</a></li>
             <li><a href="#use-cases">Use Cases</a></li>
-            <li><a href="#images">Screenshots</a></li>
             <li><a href="#license">License</a></li>
             <li><a href="#contributing">Contributing</a></li>
         </ul>
     </nav>
 
+    <!-- Features Section -->
     <section id="features">
         <h2>Features</h2>
         <ul>
@@ -37,6 +93,31 @@
         </ul>
     </section>
 
+    <!-- Screenshots Section -->
+    <section id="screenshots">
+        <h2>Screenshots</h2>
+        <div class="image-container">
+            <img src="/Qemu-QuickBoot.png" alt="QEMU-QuickBoot Screenshot 1">
+            <img src="/Qemu-QuickBoot-2.png" alt="QEMU-QuickBoot Screenshot 2">
+        </div>
+    </section>
+
+    <!-- Installation Section with Copy Code Block -->
+    <section id="installation">
+        <h2>Installation</h2>
+        <div class="code-block">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre><code>
+sudo apt update
+sudo apt install qemu-system wget qemu-utils qemu-system-gui xdotool ovmf qemu-system zenity orchis-gtk-theme
+git clone https://github.com/GlitchLinux/QEMU-QuickBoot.git
+cd QEMU-QuickBoot
+sudo bash QEMU-QuickBoot.sh
+            </code></pre>
+        </div>
+    </section>
+
+    <!-- Boot Modes Section -->
     <section id="boot-modes">
         <h2>Boot Modes</h2>
         <h3>1. Boot from Any Connected Device</h3>
@@ -54,6 +135,7 @@
         <p><strong>Potential Use Cases:</strong> Installing an OS using a virtual DVD and configuring a separate virtual disk, creating portable systems on USB devices or SD cards, deploying rescue tools on crashed drives without rebooting.</p>
     </section>
 
+    <!-- Use Cases Section -->
     <section id="use-cases">
         <h2>Potential Use Cases</h2>
         <ul>
@@ -65,19 +147,13 @@
         </ul>
     </section>
 
-    <section id="images">
-        <h2>Screenshots</h2>
-        <div class="image-container">
-            <img src="/Qemu-QuickBoot.png" alt="QEMU-QuickBoot Screenshot 1">
-            <img src="/Qemu-QuickBoot-2.png" alt="QEMU-QuickBoot Screenshot 2">
-        </div>
-    </section>
-
+    <!-- License Section -->
     <section id="license">
         <h2>License</h2>
         <p>This project is licensed under the MIT License. See the <a href="https://github.com/GlitchLinux/QEMU-QuickBoot/blob/main/LICENSE">LICENSE</a> file for details.</p>
     </section>
 
+    <!-- Contributing Section -->
     <section id="contributing">
         <h2>Contributing</h2>
         <p>Feel free to submit issues or pull requests if you find any bugs or have suggestions for improvements.</p>
@@ -87,5 +163,20 @@
     <footer>
         <p>&copy; 2025 gLiTcH Linux. All rights reserved.</p>
     </footer>
+
+    <!-- JavaScript for copying code -->
+    <script>
+        function copyCode() {
+            const code = `sudo apt update
+sudo apt install qemu-system wget qemu-utils qemu-system-gui xdotool ovmf qemu-system zenity orchis-gtk-theme
+git clone https://github.com/GlitchLinux/QEMU-QuickBoot.git
+cd QEMU-QuickBoot
+sudo bash QEMU-QuickBoot.sh`;
+
+            navigator.clipboard.writeText(code.trim())
+                .then(() => alert('Code copied to clipboard!'))
+                .catch(() => alert('Failed to copy code.'));
+        }
+    </script>
 </body>
 </html>
