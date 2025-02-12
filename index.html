@@ -1,1 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <title>gLiTcH Linux</title>
+    <meta name="description" content="gLiTcH Linux - A Debian-based Linux distribution designed for privacy and anonymity.">
+    <meta name="keywords" content="Linux, Privacy, Anonymity, Security, Debian, gLiTcH Linux">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon Links -->
+    <link rel="apple-touch-icon" sizes="180x180" href="glitch-icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="glitch-icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="glitch-icon/favicon-16x16.png">
+    <link rel="manifest" href="glitch-icon/site.webmanifest">
+    <link rel="shortcut icon" href="glitch-icon/favicon.ico">
+    <style>
+        .tagline {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 2rem;
+            color: #00FF36;
+            opacity: 0;
+            animation: fadeIn 12s forwards; /* Now 12 seconds */
+        }
 
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="glitch" data-text="gLiTcH Linux">gLiTcH Linux</div>
+        <p class="tagline">Secure, Stealthy, and Built for Privacy.</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#download">Downloads</a></li>
+            <li><a href="#scripts">Scripts</a></li>
+            <li><a href="qemu-quickboot.html">QEMU-QuickBoot</a></li> <!-- New link -->
+            <li><a href="https://github.com/GlitchLinux">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <section id="about">
+        <h2>What is gLiTcH Linux?</h2>
+        <p>gLiTcH Linux is a lightweight, security-focused operating system designed for privacy enthusiasts and hackers<p>
+        <p> alike. Built with stealth and OPSEC in mind, it provides a robust platform for secure computing.</p>
+    </section>
+
+    <section id="features">
+        <h2>Features:</h2>
+        <ul>
+            <li>Pre-configured privacy tools</li>
+            <li>gLiTcH Linux is a Debian-based distro that focuses on privacy, anonymity, and security.</li>
+            <li>The .img file is bootable in both BIOS and UEFI.</li>
+            <li>It includes a Calamares installer but is also designed for live boot usage.</li>
+            <li>An encrypted persistent partition can be set up, giving users flexibility and security.</li>
+        </ul>
+    </section>
+
+    <section id="download">
+        <h2>Download: gLiTcH amd64 KDE:</h2>
+        <p>Download the latest stable version, flash it to a usb drive or internal disk. </p>
+       </p>This Release comes with calamares installer [Debian 12 BookWorm - KDE Desktop]</p>
+        <a href="https://glitchlinux.wtf/FILES/gLiTcH-Linux/gLiTcH-Linux-KDE-v5.0-BIOS-UEFI-3.7GB.img">
+            <button class="download-btn">Download: gLiTcH-KDE-v5.0-3.7GB.img</button>
+        </a>
+    </section>
+
+<section id="download">
+        <h2>Download: gLiTcH amd64 XFCE:</h2>
+        <p>Download the latest stable version, flash it to a usb drive or mount in a virtual machine. </p>
+       </p>This Release comes with calamares installer [Debian 12 BookWorm - XFCE Desktop]</p>
+        <a href="https://glitchlinux.wtf/FILES/gLiTcH-Linux/DEBIAN-gLiTcH-CALAMARES-LIVE-1.9GB.iso">
+            <button class="download-btn">Download: gLiTcH-XFCE-LIVE-1.9GB.iso</button>
+        </a>
+    </section>
+
+    
+    <section id="scripts">
+        <h2>Scripts:</h2>
+        <p>These are some useful scripts for deployment and system setup:</p>
+        <ul>
+            <li>
+                <a href="https://github.com/GlitchLinux/QEMU-QuickBoot/releases/download/Qemu-QuickBoot-v.1.3/QEMU-QuickBoot.sh">
+                    <button class="download-btn">Download: QEMU-QuickBoot</button></button>
+                </a>
+                <p>Zenity GUI Interface for quick and easy deployment of QEMU Virtual Machines.</p>
+            </li>
+            <li>
+                <a href="https://github.com/GlitchLinux/linux-live-encrypted-persistence/releases/download/encrypted-persistence-linux-live/linux-live-encrypted-persistence.sh" download="linux-live-encrypted-persistence.sh">
+                    <button class="download-btn">Download: Encrypted-Persistence</button>
+                </a>
+                <p>Bash script that automates the setup of an encrypted persistent partition on a live system based on Debian/Ubuntu.</p>
+            </li>
+        </ul>
+    </section>
+
+    <section id="community">
+        <h2>Glitch Linux GitHub:</h2>
+        <p>Where you find latest scripts, news and updates:</p>
+        <div class="social-links">
+            <a href="https://github.com/GlitchLinux">GitHub</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 gLiTcH Linux. All rights reserved.</p>
+    </footer>
+</body>
+</html>
