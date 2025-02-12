@@ -177,7 +177,6 @@ main_menu() {
             ;;
     esac
 }
-
 # Ask for root password at the start
 ask_for_password
 
