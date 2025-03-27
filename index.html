@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.5">
-    <title>gLiTcH Linux</title>
+    <title>gLiTcH Linux - Onion</title>
     <meta name="description" content="gLiTcH Linux - A Debian-based Linux distribution designed for privacy and anonymity.">
     <meta name="keywords" content="Linux, Privacy, Anonymity, Security, Debian, gLiTcH Linux">
     <link rel="stylesheet" href="styles.css">
@@ -14,6 +14,37 @@
     <link rel="icon" type="image/png" sizes="16x16" href="glitch-icon/favicon-16x16.png">
     <link rel="manifest" href="glitch-icon/site.webmanifest">
     <link rel="shortcut icon" href="glitch-icon/favicon.ico">
+    <style>
+        .tagline {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 2rem;
+            color: #00FF36;
+            opacity: 0;
+            animation: fadeIn 12s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        .onion-link {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2rem;
+            color: #00FF36;
+            word-break: break-all;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #111;
+            border: 1px solid #00FF36;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -23,20 +54,24 @@
 
     <nav>
         <ul>
+            <li><a href="index.html">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="#download">Downloads</a></li>
             <li><a href="#scripts">Scripts</a></li>
             <li><a href="qemu-quickboot.html">QEMU-QuickBoot</a></li>
-            <li><a href="onion.html">Onion</a></li> <!-- New Onion tab -->
             <li><a href="https://github.com/GlitchLinux">GitHub</a></li>
+            <li><a href="onion.html">Onion</a></li>
         </ul>
     </nav>
 
-    <section id="about">
-        <h2>What is gLiTcH Linux?</h2>
-        <p>gLiTcH Linux is a lightweight, security-focused operating system designed for privacy enthusiasts and hackers.</p>
-        <p>Built with stealth and OPSEC in mind, it provides a robust platform for secure computing.</p>
+    <section id="onion">
+        <h2>gLiTcH Linux Onion Service</h2>
+        <p>gLiTcH Linux onion link, visit the link below with Tor browser:</p>
+        <div class="onion-link">
+            http://geuosc47y7ixt7kkge3wb737t7faxbstmeiak7dbfiigwgqsdv5tajyd.onion/
+        </div>
+        <p>For maximum privacy and security, always access our onion service through the official Tor browser.</p>
     </section>
 
     <footer>
@@ -44,4 +79,3 @@
     </footer>
 </body>
 </html>
-
