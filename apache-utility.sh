@@ -99,36 +99,38 @@ update_website() {
 
 # Main menu
 main_menu() {
-    echo " "
-    echo -e "\e[38;2;255;0;240mGLITCHLINUX.WTF\e[0m"    
-    echo " "
-    echo "Choose an option:"
-    echo " "
-    echo -e "[\e[38;2;255;0;240m1\e[0m] WEBSITE UPDATE"
-    echo -e "[\e[38;2;255;0;240m2\e[0m] UNDO LAST UPDATE"
-    echo -e "[\e[38;2;255;0;240m3\e[0m] APACHE STATUS"
-    echo -e "[\e[38;2;255;0;240m4\e[0m] APACHE RESTART"
-    echo -e "[\e[38;2;255;0;240m5\e[0m] CREATE BACKUP"
-    echo -e "[\e[38;2;255;0;240m6\e[0m] SYNTAX VERIFY"
-    echo -e "[\e[38;2;255;0;240m7\e[0m] APACHE START"
-    echo -e "[\e[38;2;255;0;240m8\e[0m] APACHE STOP"
-    echo -e "[\e[38;2;255;0;240m9\e[0m] EXIT"
-    echo " "
+    while true; do
+        echo " "
+        echo -e "\e[38;2;255;0;240mGLITCHLINUX.WTF\e[0m"
+        echo " "
+        echo "Choose an option:"
+        echo " "
+        echo -e "[\e[38;2;255;0;240m1\e[0m] WEBSITE UPDATE"
+        echo -e "[\e[38;2;255;0;240m2\e[0m] UNDO LAST UPDATE"
+        echo -e "[\e[38;2;255;0;240m3\e[0m] APACHE STATUS"
+        echo -e "[\e[38;2;255;0;240m4\e[0m] APACHE RESTART"
+        echo -e "[\e[38;2;255;0;240m5\e[0m] CREATE BACKUP"
+        echo -e "[\e[38;2;255;0;240m6\e[0m] SYNTAX VERIFY"
+        echo -e "[\e[38;2;255;0;240m7\e[0m] APACHE START"
+        echo -e "[\e[38;2;255;0;240m8\e[0m] APACHE STOP"
+        echo -e "[\e[38;2;255;0;240m9\e[0m] EXIT"
+        echo " "
 
-    read -p "Enter your choice: " choice
+        read -p "Enter your choice: " choice
 
-    case $choice in
-        1) update_website; main_menu ;;
-        2) undo_last_update; main_menu ;;
-        3) check_apache_status; main_menu ;;
-        4) reboot_webserver; main_menu ;;
-        5) backup_webserver; main_menu ;;
-        6) verify_apache_config; main_menu ;;
-        7) start_webserver; main_menu ;;
-        8) stop_webserver; main_menu ;;
-        9) echo "Exiting script."; exit ;;
-        *) echo "Invalid choice. Please try again."; main_menu ;;
-    esac
+        case $choice in
+            1) update_website ;;
+            2) undo_last_update ;;
+            3) check_apache_status ;;
+            4) reboot_webserver ;;
+            5) backup_webserver ;;
+            6) verify_apache_config ;;
+            7) start_webserver ;;
+            8) stop_webserver ;;
+            9) echo "Exiting script."; break ;;
+            *) echo "Invalid choice. Please try again." ;;
+        esac
+    done
 }
 
 ask_for_password
