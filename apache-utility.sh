@@ -10,26 +10,23 @@ check_apache_status() {
     systemctl status apache2
 }
 
+# Function to start Apache
+start_webserver() {
+    echo "Starting webserver..."
+    sudo systemctl start apache2
+    echo "Webserver started successfully."
+}
+
 # Function to update the website
 update_website() {
     echo "Backing up current website files..."
 
-    # Ensure backup directories exist
-    sudo mkdir -p /etc/apache-undo/html/html
-    sudo mkdir -p /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf
+    # Create backup directory if it doesn't exist
+    sudo mkdir -p /etc/apache-undo/glitchlinux.wtf
 
-    # Backup only files, not directories, excluding FILES directory
-    sudo cp /var/www/html/index.html /etc/apache-undo/html/html/index.html
-    sudo cp /var/www/html/styles.css /etc/apache-undo/html/html/styles.css
-    sudo cp /var/www/html/qemu-quickboot.html /etc/apache-undo/html/html/qemu-quickboot.html
-    sudo cp /var/www/html/Qemu-QuickBoot.png /etc/apache-undo/html/html/Qemu-QuickBoot.png
-    sudo cp /var/www/html/Qemu-QuickBoot-2.png /etc/apache-undo/html/html/Qemu-QuickBoot-2.png
-    
-    sudo cp /var/www/glitchlinux.wtf/index.html /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/index.html
-    sudo cp /var/www/glitchlinux.wtf/styles.css /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/styles.css
-    sudo cp /var/www/glitchlinux.wtf/qemu-quickboot.html /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/qemu-quickboot.html
-    sudo cp /var/www/glitchlinux.wtf/Qemu-QuickBoot.png /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/Qemu-QuickBoot.png
-    sudo cp /var/www/glitchlinux.wtf/Qemu-QuickBoot-2.png /etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/Qemu-QuickBoot-2.png
+    # Backup all files from glitchlinux.wtf except FILES directory
+    echo "Backing up /var/www/glitchlinux.wtf to /etc/apache-undo/glitchlinux.wtf (excluding FILES)..."
+    sudo rsync -a --exclude='FILES/' /var/www/glitchlinux.wtf/ /etc/apache-undo/glitchlinux.wtf/ --delete
 
     # Define temporary directory for cloning the repository
     TEMP_DIR="/tmp/glitchlinux.wtf"
@@ -38,59 +35,49 @@ update_website() {
     cd $TEMP_DIR
 
     # Clone the GitHub repository
+    echo "Cloning repository..."
     sudo git clone https://github.com/GlitchLinux/glitchlinux.wtf.git $TEMP_DIR
 
-    # Overwrite existing files with new ones if they exist
-    for file in index.html styles.css qemu-quickboot.html Qemu-QuickBoot.png Qemu-QuickBoot-2.png; do
-        if [[ -f "$TEMP_DIR/$file" ]]; then
-            sudo cp "$TEMP_DIR/$file" /var/www/html/
-            sudo cp "$TEMP_DIR/$file" /var/www/glitchlinux.wtf/
-        else
-            echo "Error: $file not found!"
-        fi
-    done
+    # Copy all files from the repository to the website directory, excluding FILES
+    echo "Updating website files (preserving FILES directory)..."
+    sudo rsync -a --exclude='FILES/' $TEMP_DIR/ /var/www/glitchlinux.wtf/ --exclude=.git --exclude=README.md --delete
+
+    # Set correct ownership and permissions for Apache to access the files
+    sudo chown -R www-data:www-data /var/www/glitchlinux.wtf
+    sudo chmod -R 755 /var/www/glitchlinux.wtf
 
     # Clean up the temporary directory
     sudo rm -rf $TEMP_DIR
-
-    # Set correct ownership and permissions for Apache to access the files
-    sudo chown -R www-data:www-data /var/www/html
-    sudo chown -R www-data:www-data /var/www/glitchlinux.wtf
-    sudo chmod -R 755 /var/www/html
-    sudo chmod -R 755 /var/www/glitchlinux.wtf
 
     # Restart Apache to apply the changes
     sudo systemctl restart apache2
 
     # Confirm update
-    echo "Website successfully updated, previous configuration has been saved!"
+    echo "Website successfully updated, previous configuration has been saved (FILES directory preserved)!"
 }
 
 # Function to undo the last update
 undo_last_update() {
-    echo "Restoring the previous website configuration from backup..."
+    echo "Restoring the previous website configuration from backup (preserving FILES directory)..."
 
-    # Restore files if they exist, but skip the /FILES/ directory
-    for file in index.html styles.css qemu-quickboot.html Qemu-QuickBoot.png Qemu-QuickBoot-2.png; do
-        if [[ -f "/etc/apache-undo/html/html/$file" ]]; then
-            sudo cp "/etc/apache-undo/html/html/$file" /var/www/html/
-            sudo cp "/etc/apache-undo/glitchlinux.wtf/glitchlinux.wtf/$file" /var/www/glitchlinux.wtf/
-        else
-            echo "Error: No backup for $file"
-        fi
-    done
+    # Check if backup exists
+    if [ ! -d "/etc/apache-undo/glitchlinux.wtf" ]; then
+        echo "Error: No backup found to restore!"
+        return 1
+    fi
+
+    # Restore all files from backup except FILES directory
+    sudo rsync -a --exclude='FILES/' /etc/apache-undo/glitchlinux.wtf/ /var/www/glitchlinux.wtf/ --delete
 
     # Set correct ownership and permissions
-    sudo chown -R www-data:www-data /var/www/html
     sudo chown -R www-data:www-data /var/www/glitchlinux.wtf
-    sudo chmod -R 755 /var/www/html
     sudo chmod -R 755 /var/www/glitchlinux.wtf
 
     # Restart Apache to apply the changes
     sudo systemctl restart apache2
 
     # Confirm restoration
-    echo "Previous configuration was successfully restored from backup, excluding FILES."
+    echo "Previous configuration was successfully restored from backup (FILES directory preserved)."
 }
 
 # Function to reboot the webserver
@@ -102,13 +89,13 @@ reboot_webserver() {
 
 # Function to backup webserver files
 backup_webserver() {
-    echo "Creating backup of webserver files..."
+    echo "Creating backup of webserver files (excluding FILES directory)..."
     BACKUP_PATH="/home/$USER/Desktop/Apache-Full-Backup.zip"
     
-    # Exclude the /var/www/glitchlinux.wtf/FILES/ directory from the backup
-    sudo zip -r $BACKUP_PATH /etc/apache2 /var/www/html /var/www/glitchlinux.wtf -x "/var/www/glitchlinux.wtf/FILES/*"
+    # Create backup of both Apache config and website files, excluding FILES
+    sudo zip -r $BACKUP_PATH /etc/apache2 /var/www/glitchlinux.wtf -x "/var/www/glitchlinux.wtf/FILES/*"
     
-    echo "Backup created at $BACKUP_PATH."
+    echo "Backup created at $BACKUP_PATH (FILES directory excluded)."
 }
 
 # Function to verify Apache configuration
@@ -121,20 +108,26 @@ verify_apache_config() {
 stop_webserver() {
     echo "Stopping webserver..."
     sudo systemctl stop apache2
-    echo "Webserver stopped. You can restart it using option [4]."
+    echo "Webserver stopped. You can start it using option [8]."
 }
 
 # Main menu
 main_menu() {
+    echo " "
+    echo -e "\e[38;2;255;0;240mGLITCHLINUX.WTF\e[0m"	
+    echo " "
     echo "Choose an option:"
-    echo "[1] UPDATE WEBSITE"
-    echo "[2] UNDO LAST UPDATE"
-    echo "[3] WEBSERVER STATUS"
-    echo "[4] WEBSERVER REBOOT"
-    echo "[5] WEBSERVER BACKUP"
-    echo "[6] WEBSERVER VERIFY"
-    echo "[7] WEBSERVER STOP"
-    echo "[8] EXIT"
+    echo " "
+    echo -e "[\e[38;2;255;0;240m1\e[0m] WEBSITE UPDATE"
+    echo -e "[\e[38;2;255;0;240m2\e[0m] UNDO LAST UPDATE"
+    echo -e "[\e[38;2;255;0;240m3\e[0m] APACHE STATUS"
+    echo -e "[\e[38;2;255;0;240m4\e[0m] APACHE RESTART"
+    echo -e "[\e[38;2;255;0;240m5\e[0m] CREATE BACKUP"
+    echo -e "[\e[38;2;255;0;240m6\e[0m] SYNTAX VERIFY"
+    echo -e "[\e[38;2;255;0;240m7\e[0m] APACHE STOP"
+    echo -e "[\e[38;2;255;0;240m8\e[0m] APACHE START"
+    echo -e "[\e[38;2;255;0;240m9\e[0m] EXIT"
+    echo " "
 
     read -p "Enter your choice: " choice
 
@@ -168,6 +161,10 @@ main_menu() {
             main_menu
             ;;
         8)
+            start_webserver
+            main_menu
+            ;;
+        9)
             echo "Exiting script."
             exit 0
             ;;
@@ -177,6 +174,7 @@ main_menu() {
             ;;
     esac
 }
+
 # Ask for root password at the start
 ask_for_password
 
