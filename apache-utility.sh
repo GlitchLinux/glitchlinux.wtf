@@ -12,23 +12,29 @@ check_apache_status() {
 
 # Function to start Apache
 start_webserver() {
+    echo " "
     echo "Starting webserver..."
     sudo systemctl start apache2
     echo "Webserver started successfully."
+    echo " "
 }
 
 # Function to stop Apache
 stop_webserver() {
+    echo " "
     echo "Stopping webserver..."
     sudo systemctl stop apache2
-    echo "Webserver stopped. You can start it using option [7]."
+    echo "Webserver stopped."
+    echo " "
 }
 
 # Function to restart Apache
 reboot_webserver() {
+    echo " "
     echo "Restarting webserver..."
     sudo systemctl restart apache2
     echo "Webserver restarted successfully."
+    echo " "
 }
 
 # Function to backup webserver files
@@ -41,7 +47,9 @@ backup_webserver() {
 
 # Function to verify Apache configuration
 verify_apache_config() {
+    echo " "
     echo "Verifying Apache configuration..."
+    echo " "
     sudo apachectl configtest
 }
 
@@ -52,7 +60,9 @@ undo_last_update() {
         sudo rsync -a --exclude='FILES/' /etc/apache-undo/glitchlinux.wtf/ /var/www/glitchlinux.wtf/ --delete
         sudo chown -R www-data:www-data /var/www/glitchlinux.wtf
         sudo systemctl restart apache2
+        echo " "
         echo "Previous configuration restored successfully."
+        echo " "
     else
         echo "Error: No backup found to restore!"
     fi
@@ -102,8 +112,6 @@ main_menu() {
     while true; do
         echo " "
         echo -e "\e[38;2;255;0;240mGLITCHLINUX.WTF\e[0m"
-        echo " "
-        echo "Choose an option:"
         echo " "
         echo -e "[\e[38;2;255;0;240m1\e[0m] WEBSITE UPDATE"
         echo -e "[\e[38;2;255;0;240m2\e[0m] UNDO LAST UPDATE"
