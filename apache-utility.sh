@@ -42,6 +42,16 @@ update_website() {
     echo "Updating website files (preserving FILES directory)..."
     sudo rsync -a --exclude='FILES/' $TEMP_DIR/ /var/www/glitchlinux.wtf/ --exclude=.git --exclude=README.md --delete
 
+    # Handle glitch-icon.zip if it exists in the repo
+    if [ -f "$TEMP_DIR/glitch-icon.zip" ]; then
+        echo "Processing glitch-icon.zip..."
+        # Create target directory if it doesn't exist
+        sudo mkdir -p /var/www/glitchlinux.wtf/glitch-icon
+        # Unzip to target directory
+        sudo unzip -o "$TEMP_DIR/glitch-icon.zip" -d /var/www/glitchlinux.wtf/glitch-icon/
+        echo "glitch-icon.zip extracted successfully."
+    fi
+
     # Set correct ownership and permissions for Apache to access the files
     sudo chown -R www-data:www-data /var/www/glitchlinux.wtf
     sudo chmod -R 755 /var/www/glitchlinux.wtf
@@ -108,7 +118,7 @@ verify_apache_config() {
 stop_webserver() {
     echo "Stopping webserver..."
     sudo systemctl stop apache2
-    echo "Webserver stopped. You can start it using option [8]."
+    echo "Webserver stopped. You can start it using option [7]."
 }
 
 # Main menu
@@ -116,16 +126,14 @@ main_menu() {
     echo " "
     echo -e "\e[38;2;255;0;240mGLITCHLINUX.WTF\e[0m"	
     echo " "
-    echo "Choose an option:"
-    echo " "
     echo -e "[\e[38;2;255;0;240m1\e[0m] WEBSITE UPDATE"
     echo -e "[\e[38;2;255;0;240m2\e[0m] UNDO LAST UPDATE"
     echo -e "[\e[38;2;255;0;240m3\e[0m] APACHE STATUS"
     echo -e "[\e[38;2;255;0;240m4\e[0m] APACHE RESTART"
     echo -e "[\e[38;2;255;0;240m5\e[0m] CREATE BACKUP"
     echo -e "[\e[38;2;255;0;240m6\e[0m] SYNTAX VERIFY"
-    echo -e "[\e[38;2;255;0;240m7\e[0m] APACHE STOP"
-    echo -e "[\e[38;2;255;0;240m8\e[0m] APACHE START"
+    echo -e "[\e[38;2;255;0;240m7\e[0m] APACHE START"
+    echo -e "[\e[38;2;255;0;240m8\e[0m] APACHE STOP"
     echo -e "[\e[38;2;255;0;240m9\e[0m] EXIT"
     echo " "
 
@@ -157,11 +165,11 @@ main_menu() {
             main_menu
             ;;
         7)
-            stop_webserver
+            start_webserver
             main_menu
             ;;
         8)
-            start_webserver
+            stop_webserver
             main_menu
             ;;
         9)
