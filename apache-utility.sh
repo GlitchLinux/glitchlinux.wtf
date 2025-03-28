@@ -126,7 +126,7 @@ main_menu() {
         6) verify_apache_config; main_menu ;;
         7) start_webserver; main_menu ;;
         8) stop_webserver; main_menu ;;
-        9) echo "Exiting script."; exit 0 ;;
+        9) echo "Exiting script."; exit ;;
         *) echo "Invalid choice. Please try again."; main_menu ;;
     esac
 }
