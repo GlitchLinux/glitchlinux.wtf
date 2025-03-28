@@ -125,16 +125,16 @@ nav ul li a:hover {
     margin-left: 5px;
     vertical-align: middle;
     position: relative;
-    top: 0; /* Reset to 0 for perfect alignment */
+    top: 5px; /* This lowers the icon by exactly 5 pixels */
     filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
     transition: filter 0.3s ease;
 }
 
 nav ul li a {
     padding: 12px 0;
-    display: inline-flex; /* Changed back to flex for better centering */
-    align-items: center; /* Ensures perfect vertical centering */
-    line-height: normal; /* Reset to normal */
+    display: inline-flex;
+    align-items: baseline; /* Changed from center to baseline for better control */
+    line-height: normal;
 }
 
 /* Remove any top positioning from the icon */
