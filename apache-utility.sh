@@ -36,12 +36,10 @@ reboot_webserver() {
 
 # Function to backup webserver files
 backup_webserver() {
-    echo "Creating backup of webserver files (excluding FILES directory)..."
-    BACKUP_PATH="/home/$USER/Desktop/Apache-Full-Backup.zip"
-    sudo zip -r $BACKUP_PATH /etc/apache2 /var/www/glitchlinux.wtf -x "/var/www/glitchlinux.wtf/FILES/*"
-    echo " "
-    echo "Backup created at $BACKUP_PATH (FILES directory excluded)."
-    echo " "
+    echo "Backing up current website files..."
+    sudo mkdir -p /etc/apache-undo/glitchlinux.wtf
+    sudo cp -r /var/www/glitchlinux.wtf/* /etc/apache-undo/glitchlinux.wtf/
+    echo "Backup completed successfully."
 }
 
 # Function to verify Apache configuration
@@ -56,7 +54,7 @@ verify_apache_config() {
 undo_last_update() {
     echo "Restoring previous website configuration from backup..."
     if [ -d "/etc/apache-undo/glitchlinux.wtf" ]; then
-        sudo rsync -a --exclude='FILES/' /etc/apache-undo/glitchlinux.wtf/ /var/www/glitchlinux.wtf/ --delete
+        sudo cp -r /etc/apache-undo/glitchlinux.wtf/* /var/www/glitchlinux.wtf/
         sudo chown -R www-data:www-data /var/www/glitchlinux.wtf
         sudo systemctl restart apache2
         echo " "
@@ -69,10 +67,8 @@ undo_last_update() {
 
 # Function to update the website
 update_website() {
-    echo "Backing up current website files..."
-    sudo mkdir -p /etc/apache-undo/glitchlinux.wtf
-    sudo rsync -a --exclude='FILES/' /var/www/glitchlinux.wtf/ /etc/apache-undo/glitchlinux.wtf/ --delete
-
+    backup_webserver
+    
     TEMP_DIR="/tmp/glitchlinux.wtf"
     sudo rm -rf $TEMP_DIR
     sudo mkdir -p $TEMP_DIR
@@ -82,7 +78,8 @@ update_website() {
     sudo git clone https://github.com/GlitchLinux/glitchlinux.wtf.git $TEMP_DIR
 
     echo "Updating website files..."
-    sudo rsync -a --exclude='FILES/' $TEMP_DIR/ /var/www/glitchlinux.wtf/ --exclude=.git --exclude=README.md --delete
+    sudo cp -r $TEMP_DIR/* /var/www/glitchlinux.wtf/
+    sudo rm -rf /var/www/glitchlinux.wtf/.git /var/www/glitchlinux.wtf/README.md
 
     if [ -f "$TEMP_DIR/glitch-icon.zip" ]; then
         echo "Processing glitch-icon.zip..."
