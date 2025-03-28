@@ -120,9 +120,12 @@ nav ul li a:hover {
 
 /* Tor Icon Styles */
 .tor-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
     filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
     transition: filter 0.3s ease;
 }
