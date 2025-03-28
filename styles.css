@@ -6,34 +6,32 @@ html, body {
     color: #00ff00;
     font-family: 'Courier New', Courier, monospace;
     line-height: 1.8;
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-    overflow-y: auto;   /* Enable vertical scrollbar */
-    scrollbar-width: thin; /* For Firefox */
-    scrollbar-color: transparent transparent; /* Hide scrollbar by default */
-    transition: scrollbar-color 0.3s ease; /* Smooth transition */
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s ease;
 }
 
-/* Show scrollbar on hover or when scrolling */
 body:hover {
-    scrollbar-color: #5A5A5A #0a0a0a; /* Show scrollbar */
+    scrollbar-color: #5A5A5A #0a0a0a;
 }
 
-/* Custom scrollbar for WebKit browsers (Chrome, Safari) */
 body::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
+    width: 8px;
 }
 
 body::-webkit-scrollbar-track {
-    background: #0a0a0a; /* Track color */
+    background: #0a0a0a;
 }
 
 body::-webkit-scrollbar-thumb {
-    background: #5A5A5A; /* Thumb color */
-    border-radius: 4px; /* Rounded corners */
+    background: #5A5A5A;
+    border-radius: 4px;
 }
 
 body::-webkit-scrollbar-thumb:hover {
-    background: #00ff00; /* Thumb color on hover */
+    background: #00ff00;
 }
 
 /* Header Styles */
@@ -41,7 +39,7 @@ header {
     text-align: center;
     padding: 2rem 0;
     background-color: #000;
-    border-bottom: 2px solid #5A5A5A; /* Grey border */
+    border-bottom: 2px solid #5A5A5A;
 }
 
 .glitch {
@@ -84,7 +82,7 @@ header {
 }
 
 .tagline {
-    font-size: 1.6625rem; /* Increased font size */
+    font-size: 1.6625rem;
     color: #00ff00;
     opacity: 0.8;
 }
@@ -111,29 +109,44 @@ nav ul li a {
     color: #00ff00;
     text-decoration: none;
     font-weight: bold;
+    display: inline-flex;
+    align-items: center;
 }
 
 nav ul li a:hover {
     text-decoration: underline;
-    color: #00cc00; /* Change link color on hover */
+    color: #00cc00;
+}
+
+/* Tor Icon Styles */
+.tor-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+    transition: filter 0.3s ease;
+}
+
+nav ul li a:hover .tor-icon {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
 }
 
 /* Section Styles */
 section {
     padding: 2rem;
-    border-bottom: 1px solid #5A5A5A; /* Grey border */
+    border-bottom: 1px solid #5A5A5A;
 }
 
 h2 {
-    color: #5A5A5A; /* Grey heading */
+    color: #5A5A5A;
     font-size: 2rem;
     margin-bottom: 1rem;
 }
 
 p, ul {
-    color: #00ff00; /* Green text */
+    color: #00ff00;
     opacity: 0.9;
-    font-size: 1.15rem; /* Standardized font size */
+    font-size: 1.15rem;
 }
 
 ul {
@@ -142,7 +155,7 @@ ul {
 }
 
 #features li {
-    font-size: 1.15rem; /* Increased font size */
+    font-size: 1.15rem;
     color: #00ff00;
     opacity: 0.9;
 }
@@ -153,8 +166,8 @@ ul {
     color: #000;
     border: none;
     padding: 0.8rem 1.5rem;
-    font-size: 1.2rem; /* Increased font size */
-    font-weight: bold; /* Bold text */
+    font-size: 1.2rem;
+    font-weight: bold;
     cursor: pointer;
     margin: 0.5rem;
     transition: background-color 0.3s, transform 0.2s ease-in-out;
@@ -162,7 +175,7 @@ ul {
 
 .download-btn:hover {
     background-color: #00cc00;
-    transform: scale(1.05); /* Slightly enlarge button on hover */
+    transform: scale(1.05);
 }
 
 /* Social Links Styles */
@@ -181,44 +194,26 @@ ul {
     text-decoration: underline;
 }
 
-/* Image Styles */
-.image-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 1rem;
-}
-
-.image-container img {
-    max-width: 100%;
-    height: auto;
-    border: 2px solid #5A5A5A;
-    border-radius: 8px;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.image-container img:hover {
-    transform: scale(1.05);
-    border-color: #00ff00;
-}
-
 /* Footer Styles */
 footer {
     text-align: center;
     padding: 1rem;
     background-color: #000;
-    border-top: 2px solid #5A5A5A; /* Grey border */
+    border-top: 2px solid #5A5A5A;
     margin-top: 2rem;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .glitch {
-        font-size: 2.5rem; /* Smaller font size for mobile */
+        font-size: 2.5rem;
     }
     nav ul li {
-        display: block; /* Stack nav items vertically on mobile */
+        display: block;
         margin: 0.5rem 0;
+    }
+    .tor-icon {
+        width: 16px;
+        height: 16px;
     }
 }
