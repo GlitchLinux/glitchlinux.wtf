@@ -125,19 +125,21 @@ nav ul li a:hover {
     margin-left: 5px;
     vertical-align: middle;
     position: relative;
-    top: 7px; /* Increased from -1px to 3px to lower the icon */
+    top: 0; /* Reset to 0 for perfect alignment */
     filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
     transition: filter 0.3s ease;
 }
 
 nav ul li a {
-    padding: 12px 0; /* Added padding to give more vertical space */
-    display: inline-block; /* Changed from inline-flex for better control */
-    line-height: 1.2; /* Adjusted line height */
+    padding: 12px 0;
+    display: inline-flex; /* Changed back to flex for better centering */
+    align-items: center; /* Ensures perfect vertical centering */
+    line-height: normal; /* Reset to normal */
 }
 
-nav ul li a:hover .tor-icon {
-    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+/* Remove any top positioning from the icon */
+nav ul li a img.tor-icon {
+    top: 0;
 }
 
 /* Section Styles */
