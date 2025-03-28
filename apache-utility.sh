@@ -134,7 +134,7 @@ main_menu() {
             6) verify_apache_config ;;
             7) start_webserver ;;
             8) stop_webserver ;;
-            9) echo "Exiting script."; break ;;
+            9) cd /home/x; break ;;
             *) echo "Invalid choice. Please try again." ;;
         esac
     done
