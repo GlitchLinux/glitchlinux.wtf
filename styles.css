@@ -1,4 +1,3 @@
-/* styles.css */
 :root {
     --primary: #00FF36;
     --primary-dark: #00CC00;
@@ -175,7 +174,7 @@ nav ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 nav ul li {
@@ -185,9 +184,9 @@ nav ul li {
 nav ul li a {
     color: var(--primary);
     padding: 0.5rem 1rem;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: inline-block;
     border-radius: 4px;
     transition: all 0.3s;
 }
@@ -482,6 +481,10 @@ footer {
     nav ul {
         flex-direction: column;
         align-items: center;
+    }
+    
+    nav ul li a {
+        font-size: 1.1rem;
     }
     
     .key-points, .feature-list, .download-grid, .script-grid, .community-links {
