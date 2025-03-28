@@ -7,7 +7,10 @@ ask_for_password() {
 
 # Function to check Apache status
 check_apache_status() {
-    systemctl status apache2
+    echo " "
+    sudo systemctl status apache2
+    echo "Returning to the menu in 3 seconds..."
+    sleep 3
 }
 
 # Function to start Apache
@@ -15,7 +18,6 @@ start_webserver() {
     echo " "
     sudo systemctl start apache2
     echo "Webserver started"
-    echo " "
 }
 
 # Function to stop Apache
@@ -23,7 +25,6 @@ stop_webserver() {
     echo " "
     sudo systemctl stop apache2
     echo "Webserver stopped"
-    echo " "
 }
 
 # Function to restart Apache
@@ -31,15 +32,16 @@ reboot_webserver() {
     echo " "
     sudo systemctl restart apache2
     echo "Webserver restarted"
-    echo " "
 }
 
 # Function to backup webserver files
 backup_webserver() {
-    echo "Backing up current website files..."
-    sudo mkdir -p /etc/apache-undo/glitchlinux.wtf
-    sudo cp -r /var/www/glitchlinux.wtf/* /etc/apache-undo/glitchlinux.wtf/
-    echo "Backup completed successfully."
+    echo "Creating backup of webserver files (excluding FILES directory)..."
+    BACKUP_PATH="/home/$USER/Desktop/Apache-Full-Backup.zip"
+    sudo zip -r $BACKUP_PATH /etc/apache2 /var/www/glitchlinux.wtf -x "/var/www/glitchlinux.wtf/FILES/*"
+    echo " "
+    echo "Backup created at $BACKUP_PATH (FILES directory excluded)."
+    echo " "
 }
 
 # Function to verify Apache configuration
@@ -54,7 +56,7 @@ verify_apache_config() {
 undo_last_update() {
     echo "Restoring previous website configuration from backup..."
     if [ -d "/etc/apache-undo/glitchlinux.wtf" ]; then
-        sudo cp -r /etc/apache-undo/glitchlinux.wtf/* /var/www/glitchlinux.wtf/
+        sudo cp -r /etc/apache-undo/glitchlinux.wtf/ /var/www/glitchlinux.wtf/ --exclude='FILES/*' --delete
         sudo chown -R www-data:www-data /var/www/glitchlinux.wtf
         sudo systemctl restart apache2
         echo " "
@@ -67,8 +69,10 @@ undo_last_update() {
 
 # Function to update the website
 update_website() {
-    backup_webserver
-    
+    echo "Backing up current website files..."
+    sudo mkdir -p /etc/apache-undo/glitchlinux.wtf
+    sudo cp -r /var/www/glitchlinux.wtf/ /etc/apache-undo/glitchlinux.wtf/
+
     TEMP_DIR="/tmp/glitchlinux.wtf"
     sudo rm -rf $TEMP_DIR
     sudo mkdir -p $TEMP_DIR
@@ -78,8 +82,7 @@ update_website() {
     sudo git clone https://github.com/GlitchLinux/glitchlinux.wtf.git $TEMP_DIR
 
     echo "Updating website files..."
-    sudo cp -r $TEMP_DIR/* /var/www/glitchlinux.wtf/
-    sudo rm -rf /var/www/glitchlinux.wtf/.git /var/www/glitchlinux.wtf/README.md
+    sudo cp -r $TEMP_DIR/* /var/www/glitchlinux.wtf/ --exclude=.git --exclude=README.md --delete
 
     if [ -f "$TEMP_DIR/glitch-icon.zip" ]; then
         echo "Processing glitch-icon.zip..."
