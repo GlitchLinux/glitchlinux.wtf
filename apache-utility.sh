@@ -41,7 +41,6 @@ backup_webserver() {
     sudo zip -r $BACKUP_PATH /etc/apache2 /var/www/glitchlinux.wtf -x "/var/www/glitchlinux.wtf/FILES/*"
     echo " "
     echo "Backup created at $BACKUP_PATH (FILES directory excluded)."
-    echo " "
 }
 
 # Function to verify Apache configuration
@@ -61,7 +60,6 @@ undo_last_update() {
         sudo systemctl restart apache2
         echo " "
         echo "Previous configuration restored successfully."
-        echo " "
     else
         echo "Error: No backup found to restore!"
     fi
