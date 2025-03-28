@@ -1,13 +1,18 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.5">
-    <title>gLiTcH Linux - Onion</title>
-    <meta name="description" content="gLiTcH Linux - A Debian-based Linux distribution designed for privacy and anonymity.">
-    <meta name="keywords" content="Linux, Privacy, Anonymity, Security, Debian, gLiTcH Linux">
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gLiTcH Linux - Onion Service</title>
+    <meta name="description" content="gLiTcH Linux - A Debian-based Linux distribution designed for privacy, anonymity, and security by obscurity.">
+    <meta name="keywords" content="Linux, Privacy, Anonymity, Security, Debian, gLiTcH Linux, OPSEC, Encryption, Tor, Onion">
+    <meta property="og:title" content="gLiTcH Linux - Onion Service">
+    <meta property="og:description" content="Access gLiTcH Linux through our Tor onion service for maximum privacy">
+    <meta name="theme-color" content="#0a0a0a">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="glitch-icon/favicon.ico" as="image">
     
     <!-- Favicon Links -->
     <link rel="apple-touch-icon" sizes="180x180" href="glitch-icon/apple-touch-icon.png">
@@ -15,69 +20,105 @@
     <link rel="icon" type="image/png" sizes="16x16" href="glitch-icon/favicon-16x16.png">
     <link rel="manifest" href="glitch-icon/site.webmanifest">
     <link rel="shortcut icon" href="glitch-icon/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    
+    <link rel="stylesheet" href="styles.css">
+    
     <style>
-        .tagline {
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            font-size: 2rem;
-            color: #00FF36;
-            opacity: 0;
-            animation: fadeIn 12s forwards;
+        .onion-link {
+            font-family: 'Fira Code', 'IBM Plex Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--primary);
+            word-break: break-all;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s;
         }
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+        .onion-link:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px rgba(0, 255, 54, 0.2);
         }
-        
-        .onion-link {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.2rem;
-            color: #00FF36;
-            word-break: break-all;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #111;
-            border: 1px solid #00FF36;
-            border-radius: 5px;
+
+        .onion-heading h2 {
+            margin-bottom: 1rem;
+        }
+
+        .onion-heading h2::after {
+            background: var(--secondary);
         }
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#onion">Skip to content</a>
+    
     <header>
         <div class="glitch" data-text="gLiTcH Linux">gLiTcH Linux</div>
         <p class="tagline">Security by Obscurity</p>
     </header>
 
-    <nav>
+    <nav aria-label="Main navigation">
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="https://glitchlinux.wtf/index.html#features">Features</a></li>
-            <li><a href="https://glitchlinux.wtf/index.html#download">Downloads</a></li>
-            <li><a href="https://glitchlinux.wtf/index.html#scripts">Scripts</a></li>
-            <li><a href="https://glitchlinux.wtf/qemu-quickboot.html">QEMU-QuickBoot</a></li>
-            <li><a href="https://github.com/GlitchLinux">GitHub</a></li>
-            <li><a href="onion.html"><img src="/onion.png" alt="Tor Icon" class="tor-icon"></a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#download">Downloads</a></li>
+            <li><a href="index.html#scripts">Scripts</a></li>
+            <li><a href="qemu-quickboot.html">QEMU-QuickBoot</a></li>
+            <li><a href="https://github.com/GlitchLinux" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="onion.html" aria-label="Tor Hidden Service"><img src="onion.png" alt="Tor Icon" class="tor-icon" width="16" height="16"></a></li>
         </ul>
     </nav>
 
- <section id="onion">
-    <div class="onion-heading">
-        <h2>gLiTcH Linux Onion Service</h2>
-    </div>
-    <p>gLiTcH Linux onion link, visit the link below with Tor browser:</p>
-    <div class="onion-link">
-        http://geuosc47y7ixt7kkge3wb737t7faxbstmeiak7dbfiigwgqsdv5tajyd.onion/
-    </div>
-    <p>For maximum privacy and security, always access our onion service through the official Tor browser.</p>
-</section>
+    <main id="main-content">
+        <section id="onion">
+            <div class="onion-heading">
+                <h2>gLiTcH Linux Onion Service</h2>
+            </div>
+            <p>For maximum privacy and security, access our onion service through the official Tor browser:</p>
+            <div class="onion-link">
+                http://geuosc47y7ixt7kkge3wb737t7faxbstmeiak7dbfiigwgqsdv5tajyd.onion/
+            </div>
+            <p>This provides end-to-end encrypted access to our services without revealing your location or identity to network observers.</p>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2025 gLiTcH Linux. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Use</a>
+                <a href="security.html">Security</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 gLiTcH Linux. All rights reserved.</p>
+                <p>Linux® is a registered trademark of Linus Torvalds.</p>
+            </div>
+            
+            <div class="credits">
+                <p>Made with <span aria-hidden="true">⚡</span> by privacy enthusiasts</p>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // Service worker registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('ServiceWorker registration successful');
+                }).catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
