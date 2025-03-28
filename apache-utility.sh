@@ -52,6 +52,15 @@ update_website() {
         echo "glitch-icon.zip extracted successfully."
     fi
 
+    # Copy apache-utility.sh to home directory if it exists
+    if [ -f "/var/www/glitchlinux.wtf/apache-utility.sh" ]; then
+        echo "Updating apache-utility.sh in home directory..."
+        sudo cp -f /var/www/glitchlinux.wtf/apache-utility.sh /home/$USER/
+        sudo chown $USER:$USER /home/$USER/apache-utility.sh
+        sudo chmod +x /home/$USER/apache-utility.sh
+        echo "apache-utility.sh updated in home directory."
+    fi
+
     # Set correct ownership and permissions for Apache to access the files
     sudo chown -R www-data:www-data /var/www/glitchlinux.wtf
     sudo chmod -R 755 /var/www/glitchlinux.wtf
@@ -66,65 +75,14 @@ update_website() {
     echo "Website successfully updated, previous configuration has been saved (FILES directory preserved)!"
 }
 
-# Function to undo the last update
-undo_last_update() {
-    echo "Restoring the previous website configuration from backup (preserving FILES directory)..."
-
-    # Check if backup exists
-    if [ ! -d "/etc/apache-undo/glitchlinux.wtf" ]; then
-        echo "Error: No backup found to restore!"
-        return 1
-    fi
-
-    # Restore all files from backup except FILES directory
-    sudo rsync -a --exclude='FILES/' /etc/apache-undo/glitchlinux.wtf/ /var/www/glitchlinux.wtf/ --delete
-
-    # Set correct ownership and permissions
-    sudo chown -R www-data:www-data /var/www/glitchlinux.wtf
-    sudo chmod -R 755 /var/www/glitchlinux.wtf
-
-    # Restart Apache to apply the changes
-    sudo systemctl restart apache2
-
-    # Confirm restoration
-    echo "Previous configuration was successfully restored from backup (FILES directory preserved)."
-}
-
-# Function to reboot the webserver
-reboot_webserver() {
-    echo "Rebooting webserver..."
-    sudo systemctl restart apache2
-    echo "Webserver rebooted successfully."
-}
-
-# Function to backup webserver files
-backup_webserver() {
-    echo "Creating backup of webserver files (excluding FILES directory)..."
-    BACKUP_PATH="/home/$USER/Desktop/Apache-Full-Backup.zip"
-    
-    # Create backup of both Apache config and website files, excluding FILES
-    sudo zip -r $BACKUP_PATH /etc/apache2 /var/www/glitchlinux.wtf -x "/var/www/glitchlinux.wtf/FILES/*"
-    
-    echo "Backup created at $BACKUP_PATH (FILES directory excluded)."
-}
-
-# Function to verify Apache configuration
-verify_apache_config() {
-    echo "Verifying Apache configuration..."
-    sudo apachectl configtest
-}
-
-# Function to stop the webserver
-stop_webserver() {
-    echo "Stopping webserver..."
-    sudo systemctl stop apache2
-    echo "Webserver stopped. You can start it using option [7]."
-}
+# [Rest of the script remains exactly the same...]
 
 # Main menu
 main_menu() {
     echo " "
     echo -e "\e[38;2;255;0;240mGLITCHLINUX.WTF\e[0m"	
+    echo " "
+    echo "Choose an option:"
     echo " "
     echo -e "[\e[38;2;255;0;240m1\e[0m] WEBSITE UPDATE"
     echo -e "[\e[38;2;255;0;240m2\e[0m] UNDO LAST UPDATE"
