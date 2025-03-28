@@ -13,27 +13,24 @@ check_apache_status() {
 # Function to start Apache
 start_webserver() {
     echo " "
-    echo "Starting webserver..."
     sudo systemctl start apache2
-    echo "Webserver started successfully."
+    echo "Webserver started"
     echo " "
 }
 
 # Function to stop Apache
 stop_webserver() {
     echo " "
-    echo "Stopping webserver..."
     sudo systemctl stop apache2
-    echo "Webserver stopped."
+    echo "Webserver stopped"
     echo " "
 }
 
 # Function to restart Apache
 reboot_webserver() {
     echo " "
-    echo "Restarting webserver..."
     sudo systemctl restart apache2
-    echo "Webserver restarted successfully."
+    echo "Webserver restarted"
     echo " "
 }
 
@@ -42,13 +39,15 @@ backup_webserver() {
     echo "Creating backup of webserver files (excluding FILES directory)..."
     BACKUP_PATH="/home/$USER/Desktop/Apache-Full-Backup.zip"
     sudo zip -r $BACKUP_PATH /etc/apache2 /var/www/glitchlinux.wtf -x "/var/www/glitchlinux.wtf/FILES/*"
+    echo " "
     echo "Backup created at $BACKUP_PATH (FILES directory excluded)."
+    echo " "
 }
 
 # Function to verify Apache configuration
 verify_apache_config() {
     echo " "
-    echo "Verifying Apache configuration..."
+    echo "Verifying Apache configuration & syntax"
     echo " "
     sudo apachectl configtest
 }
