@@ -1,24 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QEMU-QuickBoot - gLiTcH Linux</title>
     <meta name="description" content="QEMU-QuickBoot - A Zenity GUI interface for quick and easy deployment of QEMU Virtual Machines.">
     <meta name="keywords" content="QEMU, Virtual Machines, GUI, Zenity, gLiTcH Linux">
+    <meta property="og:title" content="QEMU-QuickBoot - gLiTcH Linux">
+    <meta property="og:description" content="A Zenity GUI interface for quick and easy deployment of QEMU Virtual Machines">
+    <meta name="theme-color" content="#0a0a0a">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="glitch-icon/favicon.ico" as="image">
+    
+    <!-- Favicon Links -->
+    <link rel="apple-touch-icon" sizes="180x180" href="glitch-icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="glitch-icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="glitch-icon/favicon-16x16.png">
+    <link rel="manifest" href="glitch-icon/site.webmanifest">
+    <link rel="shortcut icon" href="glitch-icon/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    
     <link rel="stylesheet" href="styles.css">
+    
     <style>
-        /* Add styles for the code block and copy button */
         .code-block {
             position: relative;
-            background-color: #0d1117; /* Dark background like GitHub */
-            padding: 6px;
-            border-radius: 6px; /* Slightly rounded corners */
-            margin: 10px 0;
-            font-family: monospace;
-            color: #FF8A00; /* Light grey text like GitHub */
-            overflow-x: auto; /* Add horizontal scroll for long lines */
-            font-size: 22px; /* Increased font size */
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            font-family: 'Fira Code', 'IBM Plex Mono', monospace;
+            color: var(--primary);
+            overflow-x: auto;
+            border: 1px solid var(--primary);
         }
 
         .code-block pre {
@@ -27,48 +45,72 @@
 
         .code-block code {
             display: block;
-            padding: 6px;
-            white-space: pre-wrap; /* Preserve formatting */
+            padding: 1rem;
+            white-space: pre-wrap;
+            font-size: 1rem;
         }
 
         .copy-button {
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: #238636; /* Green button like GitHub */
-            color: white;
+            background-color: var(--primary);
+            color: var(--bg-darker);
             border: none;
-            padding: 5px 5px;
-            border-radius: 3px;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
             cursor: pointer;
-            font-family: sans-serif;
-            font-size: 16px;
+            font-family: 'Fira Code', 'IBM Plex Mono', monospace;
+            font-weight: bold;
+            transition: all 0.3s;
         }
 
         .copy-button:hover {
-            background-color: #2ea043; /* Slightly lighter green on hover */
+            background-color: var(--primary-dark);
         }
 
         .image-container {
-            display: flex;
-            gap: 10px;
-            margin: 20px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
         }
 
         .image-container img {
-            max-width: 100%;
+            width: 100%;
             height: auto;
-            border-radius: 6px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.02);
+        }
+
+        .use-case {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .use-case h3 {
+            margin-top: 0;
+            color: var(--primary);
         }
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    
     <header>
         <div class="glitch" data-text="QEMU-QuickBoot">QEMU-QuickBoot</div>
-        <p class="tagline">Quick and Easy Deployment of QEMU Virtual Machines.</p>
+        <p class="tagline">Quick and Easy Deployment of QEMU Virtual Machines</p>
     </header>
 
-    <nav>
+    <nav aria-label="Main navigation">
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="#features">Features</a></li>
@@ -81,90 +123,143 @@
         </ul>
     </nav>
 
-    <!-- Features Section -->
-    <section id="features">
-        <h2>Features</h2>
-        <ul>
-            <li>User-Friendly Interface: Utilizes Zenity to present a straightforward interface for selecting VM boot sources and configurations.</li>
-            <li>Multiple Boot Options: Supports booting VMs from connected devices, various file formats (.vhd, .img, .iso), and ISO images with virtual drives or physical devices.</li>
-            <li>Dynamic RAM Configuration: Allows users to specify the amount of RAM (in MB) allocated to the VM.</li>
-            <li>BIOS and UEFI Support: Provides options for booting in BIOS or UEFI mode.</li>
-            <li>Error Handling: Includes error handling to ensure smooth operation and user feedback throughout the VM setup process.</li>
-        </ul>
-    </section>
+    <main id="main-content">
+        <!-- Features Section -->
+        <section id="features">
+            <h2>Features</h2>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <h3>User-Friendly Interface</h3>
+                    <p>Utilizes Zenity to present a straightforward interface for selecting VM boot sources and configurations.</p>
+                </li>
+                <li class="feature-item">
+                    <h3>Multiple Boot Options</h3>
+                    <p>Supports booting VMs from connected devices, various file formats (.vhd, .img, .iso), and ISO images with virtual drives or physical devices.</p>
+                </li>
+                <li class="feature-item">
+                    <h3>Dynamic RAM Configuration</h3>
+                    <p>Allows users to specify the amount of RAM (in MB) allocated to the VM.</p>
+                </li>
+                <li class="feature-item">
+                    <h3>BIOS and UEFI Support</h3>
+                    <p>Provides options for booting in BIOS or UEFI mode.</p>
+                </li>
+                <li class="feature-item">
+                    <h3>Error Handling</h3>
+                    <p>Includes error handling to ensure smooth operation and user feedback throughout the VM setup process.</p>
+                </li>
+            </ul>
+        </section>
 
-    <!-- Screenshots Section -->
-    <section id="screenshots">
-        <h2>Screenshots</h2>
-        <div class="image-container">
-            <img src="/Qemu-QuickBoot.png" alt="QEMU-QuickBoot Screenshot 1">
-            <img src="/Qemu-QuickBoot-2.png" alt="QEMU-QuickBoot Screenshot 2">
-        </div>
-    </section>
+        <!-- Screenshots Section -->
+        <section id="screenshots">
+            <h2>Screenshots</h2>
+            <div class="image-container">
+                <img src="/Qemu-QuickBoot.png" alt="QEMU-QuickBoot Screenshot 1" loading="lazy">
+                <img src="/Qemu-QuickBoot-2.png" alt="QEMU-QuickBoot Screenshot 2" loading="lazy">
+            </div>
+        </section>
 
-    <!-- Installation Section with Copy Code Block -->
-    <section id="installation">
-        <h2>Installation</h2>
-        <div class="code-block">
-            <button class="copy-button" onclick="copyCode()">Copy Code</button>
-            <pre><code>
+        <!-- Installation Section with Copy Code Block -->
+        <section id="installation">
+            <h2>Installation</h2>
+            <div class="code-block">
+                <button class="copy-button" onclick="copyCode()">Copy Code</button>
+                <pre><code>
 sudo apt update
 sudo apt install qemu-system wget qemu-utils qemu-system-gui xdotool ovmf qemu-system zenity orchis-gtk-theme
 git clone https://github.com/GlitchLinux/QEMU-QuickBoot.git
 cd QEMU-QuickBoot
 sudo bash QEMU-QuickBoot.sh
-            </code></pre>
-        </div>
-    </section>
+                </code></pre>
+            </div>
+        </section>
 
-    <!-- Boot Modes Section -->
-    <section id="boot-modes">
-        <h2>Boot Modes</h2>
-        <h3>1. Boot from Any Connected Device</h3>
-        <p><strong>Description:</strong> Boot the virtual machine directly from a connected device (USB drive, SD card, or internal/external SSD/HDD).</p>
-        <p><strong>Potential Use Cases:</strong> Testing bootable storage media without a physical machine or system reboot, rapid deployment of virtual environments.</p>
+        <!-- Boot Modes Section -->
+        <section id="boot-modes">
+            <h2>Boot Modes</h2>
+            <div class="use-case">
+                <h3>1. Boot from Any Connected Device</h3>
+                <p><strong>Description:</strong> Boot the virtual machine directly from a connected device (USB drive, SD card, or internal/external SSD/HDD).</p>
+                <p><strong>Potential Use Cases:</strong> Testing bootable storage media without a physical machine or system reboot, rapid deployment of virtual environments.</p>
+            </div>
 
-        <h3>2. Boot from File (.vhd, .img, .iso)</h3>
-        <p><strong>Description:</strong> Boot a VM directly from any file, supporting formats like .vhd, .img, or an ISO file.</p>
-        <p><strong>Supported File Types:</strong> .qcow2, .iso, .qcow, .raw, .vmdk, .vdi, .vhdx, .vhd, .cloop, .qed, .parallels, .bochs, .dmg, .blkdebug</p>
-        <p><strong>Potential Use Cases:</strong> Quick setup for testing various file formats, booting any Linux live distro, WinPE ISO, etc.</p>
+            <div class="use-case">
+                <h3>2. Boot from File (.vhd, .img, .iso)</h3>
+                <p><strong>Description:</strong> Boot a VM directly from any file, supporting formats like .vhd, .img, or an ISO file.</p>
+                <p><strong>Supported File Types:</strong> .qcow2, .iso, .qcow, .raw, .vmdk, .vdi, .vhdx, .vhd, .cloop, .qed, .parallels, .bochs, .dmg, .blkdebug</p>
+                <p><strong>Potential Use Cases:</strong> Quick setup for testing various file formats, booting any Linux live distro, WinPE ISO, etc.</p>
+            </div>
 
-        <h3>3. ISO & Drive</h3>
-        <p><strong>Description:</strong> Combines booting from an ISO or IMG file as a virtual DVD with a virtual disk file or physical device as a virtual drive.</p>
-        <p><strong>Be Aware:</strong> All physical devices are mounted as virtual internal drives in the VM.</p>
-        <p><strong>Potential Use Cases:</strong> Installing an OS using a virtual DVD and configuring a separate virtual disk, creating portable systems on USB devices or SD cards, deploying rescue tools on crashed drives without rebooting.</p>
-    </section>
+            <div class="use-case">
+                <h3>3. ISO & Drive</h3>
+                <p><strong>Description:</strong> Combines booting from an ISO or IMG file as a virtual DVD with a virtual disk file or physical device as a virtual drive.</p>
+                <p><strong>Be Aware:</strong> All physical devices are mounted as virtual internal drives in the VM.</p>
+                <p><strong>Potential Use Cases:</strong> Installing an OS using a virtual DVD and configuring a separate virtual disk, creating portable systems on USB devices or SD cards, deploying rescue tools on crashed drives without rebooting.</p>
+            </div>
+        </section>
 
-    <!-- Use Cases Section -->
-    <section id="use-cases">
-        <h2>Potential Use Cases</h2>
-        <ul>
-            <li>Installing OS with Virtual DVD and Separate Virtual Disk: For testing, development, and experimentation with various operating systems.</li>
-            <li>Mimicking Real Hardware Setup: Deploy an installer DVD alongside a dedicated virtual disk.</li>
-            <li>Efficient OS Installation: Install an OS to a virtual disk or second internal disk directly from your host desktop.</li>
-            <li>Creating Portable Systems: Install an OS on USB devices or SD cards for on-the-go environments.</li>
-            <li>Deploying Rescue Tools: Deploy rescue tools onto crashed drives without rebooting.</li>
-        </ul>
-    </section>
+        <!-- Use Cases Section -->
+        <section id="use-cases">
+            <h2>Potential Use Cases</h2>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <h3>Installing OS with Virtual DVD and Separate Virtual Disk</h3>
+                    <p>For testing, development, and experimentation with various operating systems.</p>
+                </li>
+                <li class="feature-item">
+                    <h3>Mimicking Real Hardware Setup</h3>
+                    <p>Deploy an installer DVD alongside a dedicated virtual disk.</p>
+                </li>
+                <li class="feature-item">
+                    <h3>Efficient OS Installation</h3>
+                    <p>Install an OS to a virtual disk or second internal disk directly from your host desktop.</p>
+                </li>
+                <li class="feature-item">
+                    <h3>Creating Portable Systems</h3>
+                    <p>Install an OS on USB devices or SD cards for on-the-go environments.</p>
+                </li>
+                <li class="feature-item">
+                    <h3>Deploying Rescue Tools</h3>
+                    <p>Deploy rescue tools onto crashed drives without rebooting.</p>
+                </li>
+            </ul>
+        </section>
 
-    <!-- License Section -->
-    <section id="license">
-        <h2>License</h2>
-        <p>This project is licensed under the MIT License. See the <a href="https://github.com/GlitchLinux/QEMU-QuickBoot/blob/main/LICENSE">LICENSE</a> file for details.</p>
-    </section>
+        <!-- License Section -->
+        <section id="license">
+            <h2>License</h2>
+            <p>This project is licensed under the MIT License. See the <a href="https://github.com/GlitchLinux/QEMU-QuickBoot/blob/main/LICENSE">LICENSE</a> file for details.</p>
+        </section>
 
-    <!-- Contributing Section -->
-    <section id="contributing">
-        <h2>Contributing</h2>
-        <p>Feel free to submit issues or pull requests if you find any bugs or have suggestions for improvements.</p>
-        <p>Visit our <a href="https://github.com/GlitchLinux/QEMU-QuickBoot">GitHub repository</a> to contribute.</p>
-    </section>
+        <!-- Contributing Section -->
+        <section id="contributing">
+            <h2>Contributing</h2>
+            <p>Feel free to submit issues or pull requests if you find any bugs or have suggestions for improvements.</p>
+            <p>Visit our <a href="https://github.com/GlitchLinux/QEMU-QuickBoot">GitHub repository</a> to contribute.</p>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2025 gLiTcH Linux. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Use</a>
+                <a href="security.html">Security</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 gLiTcH Linux. All rights reserved.</p>
+                <p>Linux® is a registered trademark of Linus Torvalds.</p>
+            </div>
+            
+            <div class="credits">
+                <p>Made with <span aria-hidden="true">⚡</span> by privacy enthusiasts</p>
+            </div>
+        </div>
     </footer>
 
-    <!-- JavaScript for copying code -->
     <script>
         function copyCode() {
             const code = `sudo apt update
@@ -176,6 +271,17 @@ sudo bash QEMU-QuickBoot.sh`;
             navigator.clipboard.writeText(code.trim())
                 .then(() => alert('Copied to clipboard!'))
                 .catch(() => alert('Failed to copy code.'));
+        }
+
+        // Service worker registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('ServiceWorker registration successful');
+                }).catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
         }
     </script>
 </body>
