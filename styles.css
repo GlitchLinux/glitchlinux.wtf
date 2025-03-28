@@ -125,7 +125,7 @@ nav ul li a:hover {
     margin-left: 5px;
     vertical-align: middle;
     position: relative;
-    top: 3px; /* Increased from -1px to 3px to lower the icon */
+    top: 7px; /* Increased from -1px to 3px to lower the icon */
     filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
     transition: filter 0.3s ease;
 }
