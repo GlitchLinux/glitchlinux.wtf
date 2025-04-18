@@ -203,11 +203,6 @@
                        download="QEMU-QuickBoot.sh">
                         Download Script
                     </a>
-                    <div class="code-snippet">
-                        <pre><code>wget https://glitchlinux.wtf/FILES/QEMU-QuickBoot.sh
-chmod +x QEMU-QuickBoot.sh && sudo bash QEMU-QuickBoot.sh</code></pre>
-                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    </div>
                 </div>
                 
                 <div class="script-card">
@@ -222,11 +217,6 @@ chmod +x QEMU-QuickBoot.sh && sudo bash QEMU-QuickBoot.sh</code></pre>
                        download="linux-live-encrypted-persistence.sh">
                         Download Script
                     </a>
-                    <div class="code-snippet">
-                        <pre><code>wget https://glitchlinux.wtf/FILES/enc-persistence.sh
-sudo bash enc-persistence.sh</code></pre>
-                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    </div>
                 </div>
             </div>
         </section>
@@ -310,20 +300,6 @@ sudo bash enc-persistence.sh</code></pre>
         if (reduceMotion) {
             document.querySelectorAll('[data-animate]').forEach(el => {
                 el.style.animation = 'none';
-            });
-        }
-
-        // Copy code functionality
-        function copyCode(button) {
-            const codeBlock = button.previousElementSibling;
-            const code = codeBlock.textContent;
-            navigator.clipboard.writeText(code).then(() => {
-                button.textContent = 'Copied!';
-                setTimeout(() => {
-                    button.textContent = 'Copy';
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
             });
         }
     </script>
