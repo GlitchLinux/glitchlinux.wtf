@@ -56,7 +56,7 @@ verify_apache_config() {
 undo_last_update() {
     echo "Restoring previous website configuration from backup..."
     if [ -d "/etc/apache-undo/glitchlinux.wtf" ]; then
-        sudo rsync -a --exclude='FILES/' /etc/apache-undo/glitchlinux.wtf/ /var/www/glitchlinux.wtf/ --delete
+        sudo rsync -a /etc/apache-undo/glitchlinux.wtf/ /var/www/glitchlinux.wtf/ --delete
         sudo chown -R www-data:www-data /var/www/glitchlinux.wtf
         sudo systemctl restart apache2
         echo " "
@@ -70,8 +70,8 @@ undo_last_update() {
 # Function to update the website
 update_website() {
     echo "Backing up current website files..."
-    sudo mkdir -p /etc/apache-undo/glitchlinux.wtf
-    sudo rsync -a --exclude='FILES/' /var/www/glitchlinux.wtf/ /etc/apache-undo/glitchlinux.wtf/ --delete
+    sudo mkdir -p /etc/apache-undo
+    sudo rsync -a /var/www/glitchlinux.wtf/ /etc/apache-undo/glitchlinux.wtf/ --delete
 
     TEMP_DIR="/tmp/glitchlinux.wtf"
     sudo rm -rf $TEMP_DIR
@@ -82,7 +82,19 @@ update_website() {
     sudo git clone https://github.com/GlitchLinux/glitchlinux.wtf.git $TEMP_DIR
 
     echo "Updating website files..."
-    sudo rsync -a --exclude='FILES/' $TEMP_DIR/ /var/www/glitchlinux.wtf/ --exclude=.git --exclude=README.md --delete
+    # Only copy files from the repo, preserving existing directories and files not in repo
+    sudo rsync -a --ignore-existing $TEMP_DIR/ /var/www/glitchlinux.wtf/ --exclude=.git --exclude=README.md
+    
+    # Update existing files from repo
+    for file in $(find $TEMP_DIR -type f -not -path '*/.git*' -not -name 'README.md'); do
+        rel_path=${file#$TEMP_DIR/}
+        if [ -f "/var/www/glitchlinux.wtf/$rel_path" ]; then
+            sudo cp -f "$file" "/var/www/glitchlinux.wtf/$rel_path"
+        else
+            sudo mkdir -p "/var/www/glitchlinux.wtf/$(dirname "$rel_path")"
+            sudo cp "$file" "/var/www/glitchlinux.wtf/$rel_path"
+        fi
+    done
 
     if [ -f "$TEMP_DIR/glitch-icon.zip" ]; then
         echo "Processing glitch-icon.zip..."
