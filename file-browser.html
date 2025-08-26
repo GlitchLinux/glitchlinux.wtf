@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GlitchLinux File Browser</title>
+<link rel="icon" href="https://glitchlinux.wtf/glitch.ico" type="image/x-icon">
+<style>
+body { background-color: #121212; color: #e0e0e0; font-family: Arial, sans-serif; margin:0; padding:0;}
+header { display:flex; align-items:center; gap:10px; padding:10px 20px; background:#1e1e1e; border-bottom:1px solid #333;}
+header img { width:28px; height:28px;}
+header h1 { margin:0; font-size:1.3rem;}
+.controls { display:flex; align-items:center; justify-content:space-between; padding:10px 20px; background:#1e1e1e; border-bottom:1px solid #333; gap:10px; flex-wrap:wrap;}
+.left-buttons { display:flex; gap:8px; flex-wrap:wrap;}
+.controls input[type="text"] { padding:5px; border-radius:5px; border:1px solid #444; background:#222; color:#e0e0e0; flex:1; min-width:150px;}
+button { background:#333; color:#e0e0e0; border:none; padding:6px 10px; border-radius:5px; cursor:pointer;}
+button:hover { background:#444;}
+.gallery { display:flex; flex-wrap:wrap; padding:20px; gap:10px;}
+.item { display:flex; align-items:center; gap:10px; padding:8px 10px; border:1px solid #333; border-radius:5px; background:#1e1e1e; cursor:pointer; min-width:150px;}
+.item img { width:48px; height:48px;}
+.item span { font-size:0.9rem; word-wrap:break-word;}
+.item.selected { border:1px solid #00bcd4; background:#263238;}
+.list-view .gallery { flex-direction:column; }
+.list-view .item { flex-direction:row; width:100%; }
+.nav-buttons { display:flex; gap:5px; margin-right:10px;}
+</style>
+</head>
+<body>
+
+<header>
+<img src="https://glitchlinux.wtf/glitch.png" alt="Glitch Icon">
+<h1>GlitchLinux File Browser</h1>
+</header>
+
+<div class="controls">
+  <div class="left-buttons">
+    <div class="nav-buttons">
+      <button id="homeBtn">[HOME]</button>
+      <button id="backBtn">&larr;</button>
+      <button id="forwardBtn">&rarr;</button>
+    </div>
+    <button id="downloadZip">Download Selected [ZIP]</button>
+    <button id="copyWgetScript">Copy wget.sh</button>
+    <button id="downloadMarkdown">Copy Markdown</button>
+    <button id="copyUrls">Copy URLs</button>
+    <button id="selectAll">Select All</button>
+    <button id="deselectAll">Unselect All</button>
+    <button id="viewToggle">View Mode [icons/list]</button>
+  </div>
+  <input type="text" id="searchInput" placeholder="Search files...">
+</div>
+
+<div id="gallery" class="gallery"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+const baseURL = "https://glitchlinux.wtf/FILES/";
+let currentPath = "";
+let files = [], folders = [];
+let historyStack = [], forwardStack = [];
+let selectedFiles = new Set();
+
+// Filetype icons map (partial, expand as needed)
+const typeIcons = {
+"3g2":"3g2.png","3ga":"3ga.png","3gp":"3gp.png","7z":"7z.png","aa":"aa.png",
+"aac":"aac.png","accdb":"accdb.png","appimage":"appimage.png","apk":"apk.png",
+"avi":"avi.png","bash":"bash.png","bin":"bin.png","bmp":"bmp.png","c":"c.png",
+"cpp":"cpp.png","css":"css.png","csv":"csv.png","deb":"deb.png","doc":"doc.png",
+"docx":"docx.png","exe":"exe.png","gif":"gif.png","html":"html.png","ico":"ico.png",
+"iso":"iso.png","java":"java.png","jpeg":"jpeg.png","jpg":"jpg.png","js":"js.png",
+"json":"json.png","mp3":"mp3.png","mp4":"mp4.png","pdf":"pdf.png","png":"png.png",
+"ppt":"ppt.png","pptx":"pptx.png","sh":"sh.png","svg":"svg.png","tar":"tar.png",
+"txt":"txt.png","vdi":"vdi.png","vhd":"vhd.png","video":"video.png","wav":"wav.png",
+"xls":"xls.png","xlsx":"xlsx.png","yaml":"yaml.png","yml":"yml.png","zip":"zip.png"
+};
+
+function getFileIcon(filename, isFolder=false){
+  if(isFolder) return "folder.png";
+  let ext = filename.split('.').pop().toLowerCase();
+  return typeIcons[ext] || "txt.png";
+}
+
+async function fetchIndex(path=""){
+  try{
+    const res = await fetch(baseURL+path);
+    const text = await res.text();
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(text,"text/html");
+    const links = htmlDoc.querySelectorAll("a");
+    files=[]; folders=[];
+    links.forEach(link=>{
+      const href = link.getAttribute("href");
+      if(!href || href.startsWith("?") || href==="../") return;
+      if(href.endsWith("/")) folders.push(href);
+      else files.push(href);
+    });
+    currentPath=path;
+    renderGallery();
+  }catch(e){console.error("Error fetching folder:",e);}
+}
+
+function renderGallery(){
+  const gallery = document.getElementById("gallery");
+  const searchValue = document.getElementById("searchInput").value.toLowerCase();
+  gallery.innerHTML="";
+
+  // Render folders first
+  folders.filter(f => f.toLowerCase().includes(searchValue)).forEach(folder => {
+    const fullPath = currentPath + folder;
+    const div = document.createElement("div");
+    div.className="item";
+    div.innerHTML=`<img src="https://glitchlinux.wtf/FILES/ICONS/${getFileIcon(folder,true)}" alt="Folder"><span>${folder}</span>`;
+    div.addEventListener("click",()=>{historyStack.push(currentPath); forwardStack=[]; fetchIndex(fullPath);});
+    gallery.appendChild(div);
+  });
+
+  // Render files
+  files.filter(f => f.toLowerCase().includes(searchValue)).forEach(file => {
+    const fullPath = currentPath + file;
+    const div = document.createElement("div");
+    div.className="item";
+    const icon = getFileIcon(file);
+    div.innerHTML=`<img src="https://glitchlinux.wtf/FILES/ICONS/${icon}" alt="${file}"><span>${file}</span>`;
+    
+    if(selectedFiles.has(fullPath)) div.classList.add("selected");
+    
+    div.addEventListener("click", ()=>{
+      div.classList.toggle("selected");
+      if(div.classList.contains("selected")) selectedFiles.add(fullPath);
+      else selectedFiles.delete(fullPath);
+    });
+    gallery.appendChild(div);
+  });
+}
+
+function getSelectedUrls(){ return Array.from(selectedFiles).map(f => baseURL+f); }
+
+// Event Listeners
+document.getElementById("viewToggle").addEventListener("click",()=>{
+  document.getElementById("gallery").classList.toggle("list-view");
+});
+document.getElementById("searchInput").addEventListener("input",renderGallery);
+
+document.getElementById("selectAll").addEventListener("click",()=>{
+  files.forEach(f=>selectedFiles.add(currentPath+f));
+  renderGallery();
+});
+document.getElementById("deselectAll").addEventListener("click",()=>{
+  files.forEach(f=>selectedFiles.delete(currentPath+f));
+  renderGallery();
+});
+
+document.getElementById("copyWgetScript").addEventListener("click",()=>{
+  const urls = getSelectedUrls(); if(!urls.length) return alert("No files selected");
+  const script = `#!/bin/bash
+USER="$USER"
+cd /home/$USER/Downloads
+mkdir -p FILES
+cd FILES
+` + urls.map(u=>`wget "${u}"`).join("\n");
+  navigator.clipboard.writeText(script).then(()=>alert("wget.sh copied!"));
+});
+
+document.getElementById("downloadMarkdown").addEventListener("click",()=>{
+  const urls=getSelectedUrls(); if(!urls.length) return alert("No files selected");
+  const md = urls.map(u=>`![](${u})`).join("\n");
+  const blob=new Blob([md],{type:"text/markdown"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="files.md"; a.click();
+});
+
+document.getElementById("copyUrls").addEventListener("click",()=>{
+  const urls=getSelectedUrls(); if(!urls.length) return alert("No files selected");
+  navigator.clipboard.writeText(urls.join("\n")).then(()=>alert("URLs copied!"));
+});
+
+document.getElementById("downloadZip").addEventListener("click", async()=>{
+  const urls = getSelectedUrls(); if(!urls.length) return alert("No files selected");
+  const zip = new JSZip();
+  for(const url of urls){
+    const filename = url.split("/").pop();
+    const resp = await fetch(url);
+    const blob = await resp.blob();
+    zip.file(filename, blob);
+  }
+  zip.generateAsync({type:"blob"}).then(content=>{
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(content); a.download="selected_files.zip"; a.click();
+  });
+});
+
+// Navigation
+document.getElementById("homeBtn").addEventListener("click",()=>{historyStack.push(currentPath); forwardStack=[]; fetchIndex("");});
+document.getElementById("backBtn").addEventListener("click",()=>{if(historyStack.length){forwardStack.push(currentPath); fetchIndex(historyStack.pop());}});
+document.getElementById("forwardBtn").addEventListener("click",()=>{if(forwardStack.length){historyStack.push(currentPath); fetchIndex(forwardStack.pop());}});
+
+// Load initial folder in list mode
+document.getElementById("gallery").classList.add("list-view");
+fetchIndex();
+</script>
+
+</body>
+</html>
