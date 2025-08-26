@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GlitchLinux Icons Gallery</title>
+  <link rel="icon" href="https://glitchlinux.wtf/glitch.ico" type="image/x-icon">
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: #1e1e1e;
+      border-bottom: 1px solid #333;
+    }
+    header img {
+      width: 28px;
+      height: 28px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background: #1e1e1e;
+      border-bottom: 1px solid #333;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .left-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .controls input[type="text"] {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #444;
+      background: #222;
+      color: #e0e0e0;
+      flex: 1;
+      min-width: 150px;
+    }
+    button {
+      background: #333;
+      color: #e0e0e0;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #444;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+    .gallery.list-view {
+      display: block;
+    }
+    .gallery.list-view .item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+    }
+    .gallery.list-view .item img {
+      max-width: 48px;
+      max-height: 48px;
+      margin: 0;
+    }
+    .item {
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid #333;
+      padding: 5px;
+      border-radius: 5px;
+      background: #1e1e1e;
+    }
+    .item img {
+      max-width: 64px;
+      max-height: 64px;
+      display: block;
+      margin: 0 auto;
+    }
+    .item span {
+      display: block;
+      margin-top: 5px;
+      font-size: 0.8rem;
+      word-wrap: break-word;
+    }
+    .item.selected {
+      border: 1px solid #00bcd4;
+      background: #263238;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://glitchlinux.wtf/glitch.png" alt="Glitch Icon">
+    <h1>GlitchLinux Icons Gallery</h1>
+  </header>
+
+  <div class="controls">
+    <div class="left-buttons">
+      <button id="downloadZip">Download Selected [ZIP]</button>
+      <button id="copyWgetScript">Copy wget.sh</button>
+      <button id="downloadMarkdown">Copy Markdown</button>
+      <button id="copyUrls">Copy URLs</button>
+      <button id="selectAll">Select All</button>
+      <button id="deselectAll">Unselect All</button>
+      <button id="viewToggle">View Mode [icons/list]</button>
+    </div>
+    <input type="text" id="searchInput" placeholder="Search icons...">
+  </div>
+
+  <div id="gallery" class="gallery"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script>
+    const baseURL = "https://glitchlinux.wtf/FILES/ICONS/";
+    const files = [];
+
+    async function fetchFiles() {
+      try {
+        const res = await fetch(baseURL);
+        const text = await res.text();
+        const parser = new DOMParser();
+        const htmlDoc = parser.parseFromString(text, "text/html");
+        const links = htmlDoc.querySelectorAll("a");
+        links.forEach(link => {
+          const href = link.getAttribute("href");
+          if (href && (href.endsWith(".png") || href.endsWith(".jpg") || href.endsWith(".svg"))) {
+            files.push(href);
+          }
+        });
+        renderGallery();
+      } catch (e) {
+        console.error("Error fetching file list:", e);
+      }
+    }
+
+    function renderGallery() {
+      const gallery = document.getElementById("gallery");
+      const searchValue = document.getElementById("searchInput").value.toLowerCase();
+      gallery.innerHTML = "";
+      files
+        .filter(f => f.toLowerCase().includes(searchValue))
+        .forEach(file => {
+          const div = document.createElement("div");
+          div.className = "item";
+          div.innerHTML = `<img src="${baseURL}${file}" alt="${file}"><span>${file}</span>`;
+          div.addEventListener("click", () => div.classList.toggle("selected"));
+          gallery.appendChild(div);
+        });
+    }
+
+    function getSelectedUrls() {
+      return Array.from(document.querySelectorAll(".item.selected span"))
+        .map(span => baseURL + span.textContent);
+    }
+
+    document.getElementById("viewToggle").addEventListener("click", () => {
+      document.getElementById("gallery").classList.toggle("list-view");
+    });
+
+    document.getElementById("searchInput").addEventListener("input", renderGallery);
+
+    document.getElementById("selectAll").addEventListener("click", () => {
+      document.querySelectorAll(".item").forEach(div => div.classList.add("selected"));
+    });
+
+    document.getElementById("deselectAll").addEventListener("click", () => {
+      document.querySelectorAll(".item").forEach(div => div.classList.remove("selected"));
+    });
+
+    document.getElementById("copyWgetScript").addEventListener("click", () => {
+      const urls = getSelectedUrls();
+      if (!urls.length) return alert("No images selected");
+      const script = `#!/bin/bash
+USER="$USER"
+cd /home/$USER/Downloads
+mkdir -p ICONS
+cd ICONS
+
+` + urls.map(u => `wget "${u}"`).join("\n");
+      navigator.clipboard.writeText(script).then(() => alert("wget.sh copied to clipboard!"));
+    });
+
+    document.getElementById("downloadMarkdown").addEventListener("click", () => {
+      const urls = getSelectedUrls();
+      if (!urls.length) return alert("No images selected");
+      const md = urls.map(u => `![](${u})`).join("\n");
+      const blob = new Blob([md], { type: "text/markdown" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "icons.md";
+      a.click();
+    });
+
+    document.getElementById("copyUrls").addEventListener("click", () => {
+      const urls = getSelectedUrls();
+      if (!urls.length) return alert("No images selected");
+      const text = urls.join("\n");
+      navigator.clipboard.writeText(text).then(() => alert("URLs copied to clipboard!"));
+    });
+
+    document.getElementById("downloadZip").addEventListener("click", async () => {
+      const urls = getSelectedUrls();
+      if (!urls.length) return alert("No images selected");
+      const zip = new JSZip();
+      for (const url of urls) {
+        const filename = url.split("/").pop();
+        const resp = await fetch(url);
+        const blob = await resp.blob();
+        zip.file(filename, blob);
+      }
+      zip.generateAsync({ type: "blob" }).then(content => {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(content);
+        a.download = "selected_icons.zip";
+        a.click();
+      });
+    });
+
+    fetchFiles();
+  </script>
+</body>
+</html>
